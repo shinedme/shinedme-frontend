@@ -1,0 +1,102 @@
+.profile {
+  margin: auto;
+  padding: 2%;
+  width: 70%;
+  height: 100vh;
+  background: linear-gradient(
+      180deg,
+      rgba(252, 167, 208, 0.7),
+      rgba(250, 179, 212, 0.7),
+      rgba(255, 161, 222, 0.7),
+      rgba(243, 132, 230, 0.7),
+      rgba(218, 106, 228, 0.7)
+  );
+  display: grid;
+  grid-template-areas:"photo  info back"
+                      "list   list list";
+  grid-template-columns: 30% 40% 30%;
+  grid-row-gap: 5vh;
+}
+
+app-profile-photo {
+  grid-area: photo;
+}
+
+.back {
+grid-area: back;
+text-align: right;
+}
+
+.fas {
+color: #663300;
+font-size: 2em;
+margin: 1vh;
+}
+
+.profile-info{
+  grid-area: info;
+  width: 50vh;
+  margin-top: 7vh;
+}
+
+app-profile-list{
+grid-area: list
+}
+
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+.name{
+    color: #663300;
+    display: grid;
+    justify-items: start;
+    grid-column-gap: 10px;
+}
+
+h2 {
+    font-family: 'Indie Flower', cursive;
+    margin: 0;
+}
+
+.nick{
+    display: flex;
+}
+
+.fa-edit {
+    margin: 5px 10px;
+    cursor: pointer;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
+
+
+.profile-list-style {
+  margin: auto;
+  padding: auto;
+  display: grid;
+  overflow: scroll;
+  height: 100vh;
+}
+
+.ul-style{
+  list-style: none;
+  margin-left: 0;
+}
+
+.image-list {
+  height: 90px;
+  width: 120px;
+}
+
+.li-style {
+  display: grid;
+  grid-template-areas: "image image likes dislikes";
+  font-family: 'Amatic SC', cursive;
+  font-size: 1.5em;
+  margin: 1vh;
+}
+
+.nophoto {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 2em;
+  color: #663300;
+}

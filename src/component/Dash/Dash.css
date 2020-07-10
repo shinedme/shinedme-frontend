@@ -1,0 +1,23 @@
+.main-style {
+  text-align: center;
+  margin: 1vh;
+  padding: 1vh;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  height: 100vh;
+  grid-column-gap: 1vh;
+}
+
+@media (max-width: 512px) {
+  .main-style {
+    display: block;
+  }
+  .rightcolumn {
+    margin-top: 20px;
+  }
+}
+
+.rightcolumn {
+  grid-template-rows: 2fr 1fr;
+  align-self: start;
+}

@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
+.home-eva {
+    margin: 0;
+    padding: 1em;
+    padding: auto;
+    display: grid;
+    grid-template-areas: "f s";
+    /* width:  50%; */
+}
+
+.emoji {
+    padding-left: 10px;
+    margin: 0;
+    font-weight: bold;
+    font-size: 2em;
+    color: #663300;
+    display: block;
+}
+
+.emoji > p {
+    margin:0;
+    padding: auto;
+    display: inline;
+    font-family: 'Amatic SC', cursive;
+    cursor: pointer;
+}
+
+.emoji > p:hover {
+    border : 1px dashed #fdfb8b;
+    background-color: rgba(255, 255, 204,0.7);
+    border-radius: 10px;
+}
+
+.first {
+  grid-area: f;
+}
+
+.second {
+  grid-area: s;
+}
