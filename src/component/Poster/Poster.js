@@ -5,13 +5,9 @@ import './Poster.css';
 import CircleButton from '../utils/CircleButton';
 
 export default () => {
-  const isAuth = true;
   const history = useHistory();
 
-  let clicked = () => {};
-  if (isAuth) {
-    clicked = () => history.push({ pathname: '/dash', hash: '1234567' });
-  }
+  const clicked = () => history.push('/login');
 
   // back part
   let squares = [];
@@ -56,7 +52,7 @@ export default () => {
       </div>
 
       <CircleButton clicked={clicked} />
-      <p className="text">This is the login button</p>
+      <p className="text">Login here</p>
     </div>
   );
 };

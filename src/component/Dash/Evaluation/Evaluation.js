@@ -30,15 +30,15 @@ export default () => {
         </p>
       </div>
 
-      <div class="home-comment">
+      <div className="home-comment">
         <textarea
           rows="4"
           cols="40"
           placeholder="What do you think could be better?"
-          maxlength="500"
+          maxLength="200"
           id="content"
         ></textarea>
-        <button class="submit" onClick={sendComment}>
+        <button className="submit" onClick={sendComment}>
           SUBMIT
         </button>
       </div>

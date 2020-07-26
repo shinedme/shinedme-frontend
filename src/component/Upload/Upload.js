@@ -8,7 +8,7 @@ import './Upload.css';
 export default () => {
   const [photo, dispatchPhoto] = useState(null);
   const [file, dispatchFile] = useState('');
-  const hiddenFileInput = React.useRef(null);
+  const hiddenFileInput = useRef(null);
   const openFile = () => {
     hiddenFileInput.current.click();
   };

@@ -2,8 +2,6 @@
 import React from 'react';
 import './Photo.css';
 
-import Photo from '../../../assets/test.jpg';
-
 export default () => {
   const currentPhotoUrl = '';
   return (
