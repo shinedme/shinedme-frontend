@@ -49,17 +49,11 @@ export default ({ children }) => {
           text-shadow: 1px 1px;
           color: #fff;
           overflow: hidden;
+          z-index: 10;
         }
         
         @media (min-width: 512px) {
           .info {height: 55vh;}
-        }
-        
-        .squares-wrapper {
-          background: rgba(78,84,200,0.5);
-          width: 100%;
-          height: 40%;
-          border-radius: 25px 25px 50% 50%;
         }
         
         .squares {
@@ -71,6 +65,7 @@ export default ({ children }) => {
           overflow: hidden;
           margin: 0;
           padding: 0;
+          z-index:-1;
         }
         
         li{

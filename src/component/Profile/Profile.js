@@ -1,57 +1,70 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { AiOutlineHome } from 'react-icons/ai';
+import { FiUploadCloud } from 'react-icons/fi';
+import { BsPeopleCircle } from 'react-icons/bs';
 import './Profile.css';
 
 import Eva from '../utils/Eva';
+import Card from '../Card/Card';
+
+import Photo from '../../assets/test.jpg';
 
 export default () => {
   const { id } = useParams();
   const post = 0;
   const like = 0;
   const painting = 0;
-  const logout = () => {};
+  const posts = [
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+  ];
+  const uploadProfilePhoto = () => {};
   return (
     <div className="profile">
-      <div className="back">
-        <Link to="/dash">
-          <i className="fas fa-home"></i>
-        </Link>
-        <Link to="/upload">
-          <i className="fas fa-arrow-circle-up"></i>
-        </Link>
-        <button onClick={logout}>
-          <i className="fas fa-sign-out-alt"></i>
-        </button>
-      </div>
-
-      <div className="profile-info">
-        <div className="name">
-          <div className="nick">
-            <h2>Name: {id}</h2>
-            <i className="far fa-edit"></i>
+      <div className="profile-up">
+        <div className="arrow profile-photo" onClick={uploadProfilePhoto}>
+          <div className="arrow-link">
+            <BsPeopleCircle className="arrow-up" />
           </div>
-          <h2>Post: {post}</h2>
         </div>
-        <Eva like={like} painting={painting} />
+
+        <div className="profile-info">
+          <div className="name">
+            <h2>*Name: {id}</h2>
+            <h2 style={{ marginLeft: '20px' }}>*Post: {post}</h2>
+          </div>
+          <Eva like={like} painting={painting} />
+        </div>
+
+        <div className="back">
+          <Link to="/dash">
+            <AiOutlineHome className="close" />
+          </Link>
+          <Link to="/upload">
+            <FiUploadCloud className="close" />
+          </Link>
+        </div>
       </div>
-      {post > 0 ? (
-        <div className="profile-list-style">
-          {/* <ul className="ul-style">
-        <li className="li-style" >
-          <img className="image-list" src="{{photoUrl(photo)}}" onClick={viewPhotoDetail(photo)}>
-          <p>Likes: {{photo.like_count}}</p>
-          <p>Dislikes: {{photo.dislike_count}}</p>
-        </li>
-      </ul> */}
-        </div>
-      ) : (
-        <button>
-          {' '}
+      <div className="profile-list">
+        {posts.length > 0 ? (
+          posts.map((p, index) => {
+            return <Card photoUrl={p.photoUrl} key={index} />;
+          })
+        ) : (
           <p className="nophoto">
-            You don't have post anything yet. <Link to="/upload">Upload ?</Link>
+            You don't have post anything yet. <Link to="/upload">Upload </Link>?
           </p>
-        </button>
-      )}
+        )}
+      </div>
     </div>
   );
 };

@@ -15,13 +15,9 @@
     font-size: 2em;
     border-radius: 5px;
     width: 100%;
-    height: 80vh;
-}
-
-@media (max-width: 512px) {
-    .home-img {
-        height: 60vh;
-    }
+    height: 100%;
+    max-width: 650px;
+    max-height: 650px;
 }
 
 .img-set {

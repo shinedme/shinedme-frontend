@@ -5,18 +5,17 @@ export default ({ like, painting }) => {
     <div className="eva">
       <div className="eva-num">
         <label>
-          {' '}
           <span role="img" aria-label="star">
-            🤩
+            🥳
           </span>{' '}
           {like}
         </label>
       </div>
-      <div className="eva-num">
+      <div className="eva-num" style={{ marginLeft: '20px' }}>
         <label>
           <span role="img" aria-label="smile">
-            🤨
-          </span>
+            🤩
+          </span>{' '}
           {painting}
         </label>
       </div>
@@ -26,9 +25,8 @@ export default ({ like, painting }) => {
         .eva {
             margin: 0;
             padding: 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            justify-self: stretch;
+            text-align: start;
+
         }
         
         .eva-num  {
@@ -36,7 +34,7 @@ export default ({ like, painting }) => {
             margin: 0;
             font-size: 1.5em;
             color: #663300;
-            justify-self: start;
+            display:inline-block;
         }
         
         .eva-num > label {

@@ -1,22 +1,32 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './Poster.css';
 
-export default () => {
-  let squares = [];
+import CircleButton from '../utils/CircleButton';
 
+export default () => {
+  const isAuth = true;
+  const history = useHistory();
+
+  let clicked = () => {};
+  if (isAuth) {
+    clicked = () => history.push({ pathname: '/dash', hash: '1234567' });
+  }
+
+  // back part
+  let squares = [];
   for (let i = 0; i < 20; i++) {
     squares.push(i);
   }
-
   const generateRandomNum = ({ min, max }) =>
     Math.floor(Math.random() * (max - min + 1) + min);
-
   return (
     <div className="intro">
       <div className="quote">
         <h1>Share Your Next</h1>
         <p>outfit style and link for other to buy</p>
       </div>
+
       <div className="squares-wrapper">
         <ul className="squares">
           {squares.map((el, i) => {
@@ -44,6 +54,9 @@ export default () => {
           })}
         </ul>
       </div>
+
+      <CircleButton clicked={clicked} />
+      <p className="text">This is the login button</p>
     </div>
   );
 };

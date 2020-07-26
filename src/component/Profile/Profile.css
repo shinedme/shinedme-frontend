@@ -1,99 +1,55 @@
 .profile {
   margin: auto;
-  padding: 2%;
-  width: 70%;
-  height: 100vh;
+  margin-top:100px;
+  width: 75%;
+  height: 100%;
   background: linear-gradient(
       180deg,
-      rgba(252, 167, 208, 0.7),
-      rgba(250, 179, 212, 0.7),
-      rgba(255, 161, 222, 0.7),
-      rgba(243, 132, 230, 0.7),
-      rgba(218, 106, 228, 0.7)
+      rgba(218, 106, 228, 0.3),
+      rgba(243, 132, 230, 0.3),
+      rgba(255, 161, 222, 0.3),
+      rgba(250, 179, 212, 0.3),
+      rgba(252, 167, 208, 0.3)
+
   );
-  display: grid;
-  grid-template-areas:"photo  info back"
-                      "list   list list";
-  grid-template-columns: 30% 40% 30%;
-  grid-row-gap: 5vh;
+  border-radius: 10px;
 }
 
-app-profile-photo {
-  grid-area: photo;
+.profile-up {
+  height: 160px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
 }
+
 
 .back {
-grid-area: back;
 text-align: right;
 }
 
-.fas {
-color: #663300;
-font-size: 2em;
-margin: 1vh;
-}
-
 .profile-info{
-  grid-area: info;
-  width: 50vh;
-  margin-top: 7vh;
+  padding-top: 20px;
 }
 
-app-profile-list{
-grid-area: list
+.profile-list {
+  width: 100%;
+  height: 460px;
+  overflow-y: scroll;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
 .name{
     color: #663300;
-    display: grid;
-    justify-items: start;
-    grid-column-gap: 10px;
+    text-align: start;
 }
 
 h2 {
     font-family: 'Indie Flower', cursive;
     margin: 0;
+    display: inline-block;
 }
 
-.nick{
-    display: flex;
-}
-
-.fa-edit {
-    margin: 5px 10px;
-    cursor: pointer;
-}
-
-@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
-
-
-.profile-list-style {
-  margin: auto;
-  padding: auto;
-  display: grid;
-  overflow: scroll;
-  height: 100vh;
-}
-
-.ul-style{
-  list-style: none;
-  margin-left: 0;
-}
-
-.image-list {
-  height: 90px;
-  width: 120px;
-}
-
-.li-style {
-  display: grid;
-  grid-template-areas: "image image likes dislikes";
-  font-family: 'Amatic SC', cursive;
-  font-size: 1.5em;
-  margin: 1vh;
-}
 
 .nophoto {
   font-family: 'Open Sans Condensed', sans-serif;

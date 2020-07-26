@@ -1,14 +1,27 @@
 import React from 'react';
-// make this one photo list display
-export default () => {
-  const currentPhotoUrl = '';
+import Modal from '../../utils/Modal';
+import Card from '../../Card/Card';
+
+import Photo from '../../../assets/test.jpg';
+
+export default ({ show, Close }) => {
+  const paintings = [
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+    { photoUrl: Photo },
+  ];
   return (
-    <div className="home-img">
-      <img
-        src={currentPhotoUrl}
-        alt="Oops! Something wrong happened"
-        className="img-set"
-      />
-    </div>
+    <Modal show={show} Close={Close}>
+      <div className="profile-list">
+        {paintings.length > 0
+          ? paintings.map((p, index) => {
+              return <Card photoUrl={p.photoUrl} key={index} />;
+            })
+          : null}
+      </div>
+    </Modal>
   );
 };

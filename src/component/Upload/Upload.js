@@ -1,37 +1,59 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { RiUploadCloud2Line } from 'react-icons/ri';
+import { AiOutlineHome } from 'react-icons/ai';
 import './Upload.css';
 
 // selectedFile && selectedFile.src != ''
 export default () => {
-  const openFile = () => {};
-  const processFile = (imageInput) => {};
+  const [photo, dispatchPhoto] = useState(null);
+  const [file, dispatchFile] = useState('');
+  const hiddenFileInput = React.useRef(null);
+  const openFile = () => {
+    hiddenFileInput.current.click();
+  };
+  const processFile = (e) => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      dispatchFile(file);
+      dispatchPhoto(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
   const uploadImage = () => {};
+  // const alertMessage = 'Not upload successfully';
   return (
     <div className="upload">
-      <Link className="close" to="/dash">
-        <i className="far fa-times-circle"></i>
+      <Link to="/dash">
+        <AiOutlineHome className="close" />
       </Link>
-      <alert></alert>
       <div className="upload-img">
-        <img className="img-preview" src="{{selectedFile.src}}" alt="" />
-        <div className="arrow" onClick={openFile}>
-          <div className="arrow-link btn-file-input">
-            <i className="fas fa-arrow-up"></i>
-          </div>
+        <div className="img-preview">
+          <img src={photo} alt="" />
         </div>
-        <input
-          id="imageInput"
-          type="file"
-          accept="image/*"
-          onChange={processFile}
-          style={{ display: 'none' }}
-        />
-        <p className="upload-text">Press or Drag & Drop to Upload</p>
       </div>
-      <button type="submit" className="submit" onClick={uploadImage}>
-        POST
-      </button>
+      <div>
+        <button className="arrow" onClick={openFile}>
+          <div className="arrow-link">
+            <RiUploadCloud2Line className="arrow-up" />
+          </div>
+          <input
+            id="imageInput"
+            type="file"
+            accept="image/*"
+            ref={hiddenFileInput}
+            onChange={(e) => processFile(e)}
+            style={{ display: 'none' }}
+          />
+        </button>
+        <button type="submit" className="arrow" onClick={uploadImage}>
+          POST
+        </button>
+      </div>
     </div>
   );
 };

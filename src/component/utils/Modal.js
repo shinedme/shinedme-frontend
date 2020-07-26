@@ -18,16 +18,14 @@ export default ({ show, Close, children }) => {
                         position: fixed;
                         z-index: 20;
                         background-color: #f8f8f8;
-                        max-width: 600px;
                         width: 60%;
                         height: 70%;
                         max-height: 570px;
-                        border: 1px solid #ccc;
-                        border-radius: 10px;
-                        box-shadow: 1px 1px 1px black;
+                        border: 10px solid #ccc;
+                        box-shadow: 10px 10px 10px black;
                         padding: 16px;
-                        top: 15%;
-                        left: calc((100% - 600px)/2);
+                        top: 12%;
+                        left: 20%;
                         transition: all 0.3s ease-out;
                         overflow-y: scroll;
                     }
@@ -44,7 +42,7 @@ export default ({ show, Close, children }) => {
                         z-index: 10;
                         left: 0;
                         top: 0;
-                        background-color: rgba(0, 0, 0, 0.5);
+                        background-color: rgba(0, 0, 0, 0.7);
                     }
                 `}</style>
     </div>

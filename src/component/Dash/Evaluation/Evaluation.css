@@ -2,11 +2,14 @@
 
 .home-eva {
     margin: 0;
-    padding: 1em;
     padding: auto;
-    display: grid;
-    grid-template-areas: "f s";
-    /* width:  50%; */
+
+}
+
+@media (max-width: 512px) {
+  .home-eva {
+      height: 10vh;
+  }
 }
 
 .emoji {
@@ -24,6 +27,7 @@
     display: inline;
     font-family: 'Amatic SC', cursive;
     cursor: pointer;
+    border : 1px dashed #fdfb8b;
 }
 
 .emoji > p:hover {
@@ -38,4 +42,21 @@
 
 .second {
   grid-area: s;
+  margin-top: 5px;
+}
+
+.home-comment {
+  margin-top:10px;
+  padding:0;
+  grid-area: c;
+}
+
+.home-comment > textarea {
+  margin: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 3px 3px 2px 0 rgba(204, 204, 204,0.9);
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 1em;
+  border-color: #663300;
+  border-radius: 5px;
 }

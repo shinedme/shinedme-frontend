@@ -17,6 +17,7 @@ body {
 
 button {
   outline: none;
+  border:none;
 }
 
 textarea {
