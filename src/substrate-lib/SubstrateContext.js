@@ -7,6 +7,12 @@ import config from '../config';
 const parsedQuery = queryString.parse(window.location.search);
 const connectedSocket = parsedQuery.rpc || config.PROVIDER_SOCKET;
 console.log(`Connected socket: ${connectedSocket}`);
+const ipfsClient = require('ipfs-http-client');
+
+const profile = {
+  nickname: null,
+  avatar: null,
+};
 
 const INIT_STATE = {
   socket: connectedSocket,
@@ -14,9 +20,14 @@ const INIT_STATE = {
   types: config.CUSTOM_TYPES,
   keyring: null,
   keyringState: null,
+  signer: null,
+  signerState: null,
+  mnemonic: window.localStorage.getItem('shinedMe:mnemonic'),
   api: null,
   apiError: null,
-  apiState: null
+  apiState: null,
+  ipfs: ipfsClient('/ip4/127.0.0.1/tcp/5001'),
+  profile: profile,
 };
 
 const reducer = (state, action) => {
@@ -42,6 +53,21 @@ const reducer = (state, action) => {
     case 'KEYRING_ERROR':
       return { ...state, keyring: null, keyringState: 'ERROR' };
 
+    case 'SET_SIGNER':
+      return { ...state, signer: action.signer, signerState: 'READY' };
+
+    case 'SIGNER_ERROR':
+      return { ...state, signer: null, signerState: action.error };
+
+    case 'NICKNAME':
+      return {
+        ...state,
+        profile: { ...state.profile, nickname: action.nickname },
+      };
+
+    case 'AVATAR':
+      return { ...state, profile: { ...state.profile, avatar: action.avatar } };
+
     default:
       throw new Error(`Unknown type: ${action.type}`);
   }
@@ -53,8 +79,9 @@ const SubstrateContextProvider = (props) => {
   // filtering props and merge with default param value
   const initState = { ...INIT_STATE };
   const neededPropNames = ['socket', 'types'];
-  neededPropNames.forEach(key => {
-    initState[key] = (typeof props[key] === 'undefined' ? initState[key] : props[key]);
+  neededPropNames.forEach((key) => {
+    initState[key] =
+      typeof props[key] === 'undefined' ? initState[key] : props[key];
   });
   const [state, dispatch] = useReducer(reducer, initState);
 
@@ -68,7 +95,7 @@ const SubstrateContextProvider = (props) => {
 // prop typechecking
 SubstrateContextProvider.propTypes = {
   socket: PropTypes.string,
-  types: PropTypes.object
+  types: PropTypes.object,
 };
 
 export { SubstrateContext, SubstrateContextProvider };

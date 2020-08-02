@@ -2,20 +2,21 @@
 @import url('https://fonts.googleapis.com/css?family=Satisfy');
 
 .account {
-    margin: auto;
+    margin:100px auto;
     width: 60%;
-    height: 100vh;
+    height: 600px;
     background: linear-gradient(
         180deg,
-        rgba(249, 67, 156,0.7),
-        rgba(250, 66, 153,0.7),
-        rgba(192, 65, 147, 0.7),
-        rgba(155, 64, 145, 0.7),
-        rgba(108, 63, 140, 0.7),
-        rgba(55, 65, 136, 0.7),
-        rgba(19, 65, 133, 0.7)
+        rgba(249, 67, 156,0.5),
+        rgba(250, 66, 153,0.5),
+        rgba(192, 65, 147, 0.5),
+        rgba(155, 64, 145, 0.5),
+        rgba(108, 63, 140, 0.5),
+        rgba(55, 65, 136, 0.5),
+        rgba(19, 65, 133, 0.5)
     );
     text-align: center;
+    border-radius: 10px;
 }
 
 
@@ -25,50 +26,6 @@
     padding: 20px;
     color: white;
     display: grid;
-}
-
-h3 {
-    font-family: 'Satisfy', cursive;
-    font-size: 2em;
-    margin: 10px;
-}
-
-.login-account {
-    display: grid;
-    grid-template-rows: repeat(6, 1fr);
-    grid-row-gap: 5px;
-    align-items: start;
-}
-
-.text-log {
-    margin: 5px;
-}
-
-.label {
-    font-size: 1.5em;
-    margin: 0 10px;
-}
-
-.info {
-    font-size: 1em;
-    background-color: rgba(255, 255, 255,0);
-    border: none;
-    outline: 0;
-    border-bottom: 1px solid white;
-    color: white;
-}
-
-::placeholder {
-    color: white;
-}
-
-.for-pass, .trans {
-    text-decoration: none;
-    color: white;
-}
-
-.for-pass:hover {
-    text-decoration: underline;
 }
 
 .log-button {
@@ -94,32 +51,6 @@ h3 {
 .log-button:active {
     box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
                 inset 2px 2px 3px rgba(0, 0, 0, .6);
-}
-
-.trans:hover {
-    padding: 10px;
-    border: 1px solid white;
-}
-
-.fas {
-    margin: 5px;
-}
-
-.fa-check {
-    color: rgb(166, 248, 166);
-}
-
-.fa-times {
-    color: rgb(255, 249, 158);
-}
-
-.hint {
-    margin: 0;
-    color: rgb(255, 249, 158);
-}
-
-.end-log {
-    align-self: end !important;
 }
 
 .close {

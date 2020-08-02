@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+
+import { useSubstrate } from './substrate-lib';
 
 import Poster from './component/Poster/Poster';
 import Dash from './component/Dash/Dash';
@@ -8,13 +10,9 @@ import Profile from './component/Profile/Profile';
 import Header from './component/Header/Header';
 import Login from './component/Landing/Login';
 
-import { LoginContext } from './context/useLogin';
-
 import './App.css';
 
 export default () => {
-  const useLogin = useContext(LoginContext);
-  const { nickname } = useLogin;
   let routes = (
     <Switch>
       <Route exact path="/" component={Poster} />
@@ -29,10 +27,10 @@ export default () => {
       />
     </Switch>
   );
-  if (nickname) {
+  if (false) {
     routes = (
       <>
-        <Header me={nickname} />
+        <Header me={'not ready'} />
         <Switch>
           <Route exact path="/" component={Dash} />
           <Route exact path="/login" component={Login} />

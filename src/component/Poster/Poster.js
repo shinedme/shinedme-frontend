@@ -1,13 +1,52 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSubstrate } from '../../substrate-lib';
 import './Poster.css';
 
 import CircleButton from '../utils/CircleButton';
 
 export default () => {
   const history = useHistory();
-
   const clicked = () => history.push('/login');
+
+  const { apiState, apiError, keyringState, signerState } = useSubstrate();
+
+  const loader = (text) => (
+    <div>
+      <p>{text}</p>
+    </div>
+  );
+
+  const error = (err) => (
+    <div>
+      <h3>Error Connecting to Substrate</h3>
+      <p>{err}</p>
+    </div>
+  );
+
+  const Button = (
+    <>
+      <CircleButton clicked={clicked} />
+      <p className="text">Login here</p>
+    </>
+  );
+
+  let show;
+
+  if (apiState === 'ERROR') show = error(apiError);
+  else if (apiState !== 'READY') show = loader('Connecting to Substrate');
+
+  if (keyringState !== 'READY') {
+    show = loader(
+      "Loading accounts (please review any extension's authorization)"
+    );
+  }
+
+  if (signerState !== 'READY') {
+    show = loader('Getting your signer with keyring');
+  } else if (signerState === 'READY') {
+    show = Button;
+  }
 
   // back part
   let squares = [];
@@ -16,6 +55,7 @@ export default () => {
   }
   const generateRandomNum = ({ min, max }) =>
     Math.floor(Math.random() * (max - min + 1) + min);
+
   return (
     <div className="intro">
       <div className="quote">
@@ -50,9 +90,7 @@ export default () => {
           })}
         </ul>
       </div>
-
-      <CircleButton clicked={clicked} />
-      <p className="text">Login here</p>
+      {show}
     </div>
   );
 };

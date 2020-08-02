@@ -1,15 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { LoginContext } from '../../context/useLogin';
+import { useSubstrate } from '../../substrate-lib';
+import { TxButton } from '../../substrate-lib/components';
 
 import Avatar from '../utils/Avatar';
+
 import './landing.css';
 import { AiOutlineHome } from 'react-icons/ai';
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export default () => {
-  const useLogin = useContext(LoginContext);
-  const { saveNickname, saveToIpfs, added_file_hash } = useLogin;
+  const { saveNickname, saveToIpfs, profile, signer, api } = useSubstrate();
+  const [status, setStatus] = useState('');
 
   const changeNickname = (event) => {
     saveNickname(event.target.value);
@@ -21,18 +27,37 @@ export default () => {
     saveToIpfs(event.target.files);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const getInitialMoney = async () => {
+    if (signer) {
+      let req = await fetch('http://localhost:4000', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({ addr: signer.address }),
+      });
+      let { txHash } = await req.json();
+      console.log(txHash);
+
+      while (1) {
+        let { data: balance } = await api.query.system.account(signer.address);
+        console.log(balance.free.toString());
+        if (balance.free > 0) {
+          break;
+        }
+        await sleep(1000);
+      }
+    }
   };
 
   return (
     <div className="login account">
       <div className="log-in">
-        <Link to="/dash">
+        <Link to="/">
           <AiOutlineHome className="close" />
         </Link>
-        <form id="capture-media" onSubmit={handleSubmit}>
-          {added_file_hash && <Avatar link={added_file_hash} />}
+        <form id="capture-media">
+          {profile.avatar && <Avatar link={profile.avatar} />}
           <input
             type="file"
             name="input-file"
@@ -48,7 +73,26 @@ export default () => {
           />
           <br />
           <div className="text-log">
-            <button className="log-button">Create new account</button>
+            {signer ? (
+              <TxButton
+                accountPair={signer}
+                label={'Create new Account'}
+                setStatus={setStatus}
+                type="SIGNED-TX"
+                disabled={!profile.nickname || !profile.avatar}
+                attrs={{
+                  palletRpc: 'erc20',
+                  callable: 'updateUser',
+                  inputParams: [profile.nickname, profile.avatar],
+                  paramFields: [true, true],
+                }}
+                preop={getInitialMoney}
+              />
+            ) : (
+              ''
+            )}
+
+            <div style={{ overflowWrap: 'break-word' }}>{status}</div>
           </div>
         </form>
       </div>
