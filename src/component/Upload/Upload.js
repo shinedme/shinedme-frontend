@@ -1,31 +1,28 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
+
+import { useSubstrate } from '../../substrate-lib';
+
 import { RiUploadCloud2Line } from 'react-icons/ri';
 import { AiOutlineHome } from 'react-icons/ai';
 import './Upload.css';
 
-// selectedFile && selectedFile.src != ''
 export default () => {
-  const [photo, dispatchPhoto] = useState(null);
-  const [file, dispatchFile] = useState('');
+  const { saveToIpfs, photo } = useSubstrate();
+
   const hiddenFileInput = useRef(null);
+
+  const captureFile = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    saveToIpfs(event.target.files, 'PHOTO');
+  };
+
   const openFile = () => {
     hiddenFileInput.current.click();
   };
-  const processFile = (e) => {
-    e.preventDefault();
-    let reader = new FileReader();
-    let file = e.target.files[0];
 
-    reader.onloadend = () => {
-      dispatchFile(file);
-      dispatchPhoto(reader.result);
-    };
-
-    reader.readAsDataURL(file);
-  };
   const uploadImage = () => {};
-  // const alertMessage = 'Not upload successfully';
   return (
     <div className="upload">
       <Link to="/dash">
@@ -44,9 +41,8 @@ export default () => {
           <input
             id="imageInput"
             type="file"
-            accept="image/*"
             ref={hiddenFileInput}
-            onChange={(e) => processFile(e)}
+            onChange={captureFile}
             style={{ display: 'none' }}
           />
         </button>

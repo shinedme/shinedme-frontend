@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { useSubstrate } from '../../substrate-lib';
 import { TxButton } from '../../substrate-lib/components';
@@ -14,8 +14,16 @@ function sleep(ms) {
 }
 
 export default () => {
-  const { saveNickname, saveToIpfs, profile, signer, api } = useSubstrate();
+  const {
+    saveNickname,
+    saveToIpfs,
+    profile,
+    signer,
+    api,
+    created_name,
+  } = useSubstrate();
   const [status, setStatus] = useState('');
+  const [created, setCreated] = useState(false);
 
   const changeNickname = (event) => {
     saveNickname(event.target.value);
@@ -24,7 +32,7 @@ export default () => {
   const captureFile = (event) => {
     event.stopPropagation();
     event.preventDefault();
-    saveToIpfs(event.target.files);
+    saveToIpfs(event.target.files, 'AVATAR');
   };
 
   const getInitialMoney = async () => {
@@ -50,6 +58,10 @@ export default () => {
     }
   };
 
+  if (created || created_name) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <div className="login account">
       <div className="log-in">
@@ -57,14 +69,19 @@ export default () => {
           <AiOutlineHome className="close" />
         </Link>
         <form id="capture-media">
-          {profile.avatar && <Avatar link={profile.avatar} />}
-          <input
-            type="file"
-            name="input-file"
-            id="input-file"
-            onChange={captureFile}
-          />
+          <p>Please choose an avatar(profile photo)</p>
+          {profile.avatar ? (
+            <Avatar src={profile.avatar} />
+          ) : (
+            <input
+              type="file"
+              name="input-file"
+              id="input-file"
+              onChange={captureFile}
+            />
+          )}
           <br />
+          <p>Please input a nickname:</p>
           <input
             type="text"
             name="username"
@@ -87,6 +104,7 @@ export default () => {
                   paramFields: [true, true],
                 }}
                 preop={getInitialMoney}
+                setCreated={setCreated}
               />
             ) : (
               ''

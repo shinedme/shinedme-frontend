@@ -9,10 +9,9 @@ const bip39 = require('bip39');
 
 const useSubstrate = () => {
   const [state, dispatch] = useContext(SubstrateContext);
-  console.log(state);
   // `useCallback` so that returning memoized function and not created
   //   everytime, and thus re-render.
-  const { api, socket, jsonrpc, types, mnemonic, keyring } = state;
+  const { api, socket, jsonrpc, types, mnemonic } = state;
 
   const connect = useCallback(async () => {
     if (api) return;
@@ -43,21 +42,36 @@ const useSubstrate = () => {
     _api.on('error', (err) =>
       dispatch({ type: 'CONNECT_ERROR', payload: err })
     );
-  }, [api, socket, jsonrpc, types, dispatch, keyring, mnemonic]);
+  }, [api, socket, jsonrpc, types, dispatch, mnemonic]);
 
   useEffect(() => {
     connect();
   }, [connect]);
 
   const saveToIpfs = useCallback(
-    ([file]) =>
-      state.ipfs
+    async ([file], type) => {
+      let src;
+      await state.ipfs
         .add(file, { progress: (prog) => console.log(`received: ${prog}`) })
         .then((added) => {
-          let avatar = added.cid.toString();
-          dispatch({ type: 'AVATAR', avatar });
-        }),
-    [state.ipfs]
+          let result = added.cid.toString();
+          src = 'https://ipfs.io/ipfs/' + result;
+        });
+      let ok;
+      while (!ok) {
+        let response = await fetch(src);
+        ok = response.ok;
+        if (ok) {
+          if (type === 'AVATAR') {
+            dispatch({ type: 'AVATAR', avatar: src });
+          }
+          if (type === 'PHOTO') {
+            dispatch({ type: 'PHOTO', photo: src });
+          }
+        }
+      }
+    },
+    [state.ipfs, dispatch]
   );
 
   const saveNickname = (nickname) => {

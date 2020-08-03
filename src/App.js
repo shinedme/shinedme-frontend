@@ -13,6 +13,7 @@ import Login from './component/Landing/Login';
 import './App.css';
 
 export default () => {
+  const { created_name } = useSubstrate();
   let routes = (
     <Switch>
       <Route exact path="/" component={Poster} />
@@ -27,12 +28,12 @@ export default () => {
       />
     </Switch>
   );
-  if (false) {
+  if (created_name) {
     routes = (
       <>
-        <Header me={'not ready'} />
+        <Header me={created_name} />
         <Switch>
-          <Route exact path="/" component={Dash} />
+          <Route exact path="/" component={Poster} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/dash" component={Dash} />
           <Route exact path="/upload" component={Upload} />

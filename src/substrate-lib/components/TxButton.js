@@ -15,12 +15,12 @@ function TxButton({
   attrs = null,
   disabled = false,
   preop = null,
+  setCreated,
 }) {
   // Hooks
-  const { api } = useSubstrate();
+  const { api, profile } = useSubstrate();
   const [unsub, setUnsub] = useState(null);
   const [sudoKey, setSudoKey] = useState(null);
-
   const { palletRpc, callable, inputParams, paramFields } = attrs;
 
   const isQuery = () => type === 'QUERY';
@@ -64,11 +64,7 @@ function TxButton({
 
   const txResHandler = ({ status }) =>
     status.isFinalized
-      ? setStatus(
-          `😉 Finalized. Block hash: ${status.asFinalized
-            .toString()
-            .slice(0, 8)}...`
-        )
+      ? setCreated(true)
       : setStatus(`Current transaction status: ${status.type}`);
 
   const txErrHandler = (err) =>
@@ -116,6 +112,8 @@ function TxButton({
       .signAndSend(fromAcct, txResHandler)
       .catch(txErrHandler);
     setUnsub(() => unsub);
+    window.localStorage.setItem('shinedMe:created::name', profile.nickname);
+    window.localStorage.setItem('shinedMe:created::avatar', profile.avatar);
   };
 
   const unsignedTx = async () => {
@@ -273,6 +271,8 @@ function TxButton({
         !allParamsFilled() ||
         ((isSudo() || isUncheckedSudo()) && !isSudoer(accountPair))
       }
+      className="shined-me"
+      style={{ fontSize: '1.5rem' }}
     >
       {label}
     </button>

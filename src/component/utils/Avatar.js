@@ -1,7 +1,6 @@
 import React from 'react';
 
-export default ({ link }) => {
-  const src = 'https://ipfs.io/ipfs/' + link;
+export default ({ src }) => {
   return (
     <img
       src={src}

@@ -28,6 +28,9 @@ const INIT_STATE = {
   apiState: null,
   ipfs: ipfsClient('/ip4/127.0.0.1/tcp/5001'),
   profile: profile,
+  created_name: window.localStorage.getItem('shinedMe:created::name'),
+  created_avatart: window.localStorage.getItem('shinedMe:created::avatar'),
+  photo: null,
 };
 
 const reducer = (state, action) => {
@@ -67,6 +70,12 @@ const reducer = (state, action) => {
 
     case 'AVATAR':
       return { ...state, profile: { ...state.profile, avatar: action.avatar } };
+
+    case 'PHOTO':
+      return { ...state, photo: action.photo };
+
+    case 'DELETE_PHOTO':
+      return { ...state, photo: null };
 
     default:
       throw new Error(`Unknown type: ${action.type}`);
