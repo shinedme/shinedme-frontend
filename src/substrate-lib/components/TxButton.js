@@ -15,10 +15,17 @@ function TxButton({
   attrs = null,
   disabled = false,
   preop = null,
-  setCreated,
+  setCreated = null,
 }) {
   // Hooks
-  const { api, profile } = useSubstrate();
+  const {
+    api,
+    profile,
+    clearUrl,
+    clearPhoto,
+    photo,
+    affiliate_url,
+  } = useSubstrate();
   const [unsub, setUnsub] = useState(null);
   const [sudoKey, setSudoKey] = useState(null);
   const { palletRpc, callable, inputParams, paramFields } = attrs;
@@ -64,7 +71,11 @@ function TxButton({
 
   const txResHandler = ({ status }) =>
     status.isFinalized
-      ? setCreated(true)
+      ? setStatus(
+          `😉 Finalized. Block hash: ${status.asFinalized
+            .toString()
+            .slice(0, 8)}`
+        )
       : setStatus(`Current transaction status: ${status.type}`);
 
   const txErrHandler = (err) =>
@@ -112,6 +123,15 @@ function TxButton({
       .signAndSend(fromAcct, txResHandler)
       .catch(txErrHandler);
     setUnsub(() => unsub);
+    if (setCreated) {
+      setCreated(true);
+    }
+    if (photo) {
+      clearPhoto();
+    }
+    if (affiliate_url) {
+      clearUrl();
+    }
     window.localStorage.setItem('shinedMe:created::name', profile.nickname);
     window.localStorage.setItem('shinedMe:created::avatar', profile.avatar);
   };
@@ -259,7 +279,6 @@ function TxButton({
 
   return (
     <button
-      basic
       color={color}
       style={style}
       type="submit"

@@ -31,6 +31,7 @@ const INIT_STATE = {
   created_name: window.localStorage.getItem('shinedMe:created::name'),
   created_avatart: window.localStorage.getItem('shinedMe:created::avatar'),
   photo: null,
+  affiliate_url: null,
 };
 
 const reducer = (state, action) => {
@@ -74,8 +75,14 @@ const reducer = (state, action) => {
     case 'PHOTO':
       return { ...state, photo: action.photo };
 
-    case 'DELETE_PHOTO':
+    case 'CLEAR_PHOTO':
       return { ...state, photo: null };
+
+    case 'SET_URL':
+      return { ...state, affiliate_url: action.affiliate_url };
+
+    case 'CLEAR_URL':
+      return { ...state, affiliate_url: null };
 
     default:
       throw new Error(`Unknown type: ${action.type}`);

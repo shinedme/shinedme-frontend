@@ -78,7 +78,19 @@ const useSubstrate = () => {
     dispatch({ type: 'NICKNAME', nickname });
   };
 
-  return { ...state, saveToIpfs, saveNickname };
+  const saveUrl = (url) => {
+    dispatch({ type: 'SET_URL', affiliate_url: url });
+  };
+
+  const clearPhoto = () => {
+    dispatch({ type: 'CLEAR_PHOTO' });
+  };
+
+  const clearUrl = () => {
+    dispatch({ type: 'CLEAR_URL' });
+  };
+
+  return { ...state, saveToIpfs, saveNickname, clearPhoto, clearUrl, saveUrl };
 };
 
 export default useSubstrate;

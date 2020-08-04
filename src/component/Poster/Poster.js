@@ -6,10 +6,17 @@ import './Poster.css';
 import CircleButton from '../utils/CircleButton';
 
 export default () => {
+  const {
+    apiState,
+    apiError,
+    keyringState,
+    signerState,
+    created_name,
+  } = useSubstrate();
+
   const history = useHistory();
   const clicked = () => history.push('/login');
-
-  const { apiState, apiError, keyringState, signerState } = useSubstrate();
+  const created = () => history.push('/dash');
 
   const loader = (text) => (
     <div>
@@ -26,7 +33,11 @@ export default () => {
 
   const Button = (
     <>
-      <CircleButton clicked={clicked} />
+      <CircleButton
+        clicked={() => {
+          created_name ? created() : clicked();
+        }}
+      />
       <p className="text">Login here</p>
     </>
   );
