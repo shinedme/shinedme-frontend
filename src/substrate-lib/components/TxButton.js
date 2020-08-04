@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { web3FromSource } from '@polkadot/extension-dapp';
-
 import { useSubstrate } from '../';
 import utils from '../utils';
 
@@ -27,44 +25,17 @@ function TxButton({
     affiliate_url,
   } = useSubstrate();
   const [unsub, setUnsub] = useState(null);
-  const [sudoKey, setSudoKey] = useState(null);
   const { palletRpc, callable, inputParams, paramFields } = attrs;
 
   const isQuery = () => type === 'QUERY';
-  const isSudo = () => type === 'SUDO-TX';
-  const isUncheckedSudo = () => type === 'UNCHECKED-SUDO-TX';
+
   const isUnsigned = () => type === 'UNSIGNED-TX';
   const isSigned = () => type === 'SIGNED-TX';
   const isRpc = () => type === 'RPC';
   const isConstant = () => type === 'CONSTANT';
 
-  const loadSudoKey = () => {
-    (async function () {
-      if (!api) {
-        return;
-      }
-      const sudoKey = await api.query.sudo.key();
-      sudoKey.isEmpty ? setSudoKey(null) : setSudoKey(sudoKey.toString());
-    })();
-  };
-
-  useEffect(loadSudoKey, [api]);
-
   const getFromAcct = async () => {
-    const {
-      address,
-      meta: { source, isInjected },
-    } = accountPair;
-    let fromAcct;
-
-    // signer is from Polkadot-js browser extension
-    if (isInjected) {
-      const injected = await web3FromSource(source);
-      fromAcct = address;
-      api.setSigner(injected.signer);
-    } else {
-      fromAcct = accountPair;
-    }
+    let fromAcct = accountPair;
 
     return fromAcct;
   };
@@ -80,33 +51,6 @@ function TxButton({
 
   const txErrHandler = (err) =>
     setStatus(`😞 Transaction Failed: ${err.toString()}`);
-
-  const sudoTx = async () => {
-    const fromAcct = await getFromAcct();
-    const transformed = transformParams(paramFields, inputParams);
-    // transformed can be empty parameters
-    const txExecute = transformed
-      ? api.tx.sudo.sudo(api.tx[palletRpc][callable](...transformed))
-      : api.tx.sudo.sudo(api.tx[palletRpc][callable]());
-
-    const unsub = txExecute
-      .signAndSend(fromAcct, txResHandler)
-      .catch(txErrHandler);
-    setUnsub(() => unsub);
-  };
-
-  const uncheckedSudoTx = async () => {
-    const fromAcct = await getFromAcct();
-    const txExecute = api.tx.sudo.sudoUncheckedWeight(
-      api.tx[palletRpc][callable](...inputParams),
-      0
-    );
-
-    const unsub = txExecute
-      .signAndSend(fromAcct, txResHandler)
-      .catch(txErrHandler);
-    setUnsub(() => unsub);
-  };
 
   const signedTx = async () => {
     const fromAcct = await getFromAcct();
@@ -190,9 +134,7 @@ function TxButton({
 
     setStatus('Sending...');
 
-    (isSudo() && sudoTx()) ||
-      (isUncheckedSudo() && uncheckedSudoTx()) ||
-      (isSigned() && signedTx()) ||
+    (isSigned() && signedTx()) ||
       (isUnsigned() && unsignedTx()) ||
       (isQuery() && query()) ||
       (isRpc() && rpc()) ||
@@ -270,28 +212,14 @@ function TxButton({
     });
   };
 
-  const isSudoer = (acctPair) => {
-    if (!sudoKey || !acctPair) {
-      return false;
-    }
-    return acctPair.address === sudoKey;
-  };
-
   return (
     <button
       color={color}
       style={style}
       type="submit"
       onClick={transaction}
-      disabled={
-        disabled ||
-        !palletRpc ||
-        !callable ||
-        !allParamsFilled() ||
-        ((isSudo() || isUncheckedSudo()) && !isSudoer(accountPair))
-      }
+      disabled={disabled || !palletRpc || !callable || !allParamsFilled()}
       className="shined-me"
-      style={{ fontSize: '1.5rem' }}
     >
       {label}
     </button>

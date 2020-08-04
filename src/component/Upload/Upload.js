@@ -71,6 +71,7 @@ export default () => {
               inputParams: [photo, affiliate_url],
               paramFields: [true, { optional: true }],
             }}
+            style={{ fontSize: '1.5rem' }}
           />
         ) : null}
 
