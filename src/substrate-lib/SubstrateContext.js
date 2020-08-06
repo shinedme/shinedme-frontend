@@ -14,6 +14,11 @@ const profile = {
   avatar: null,
 };
 
+const upload = {
+  photo: null,
+  affiliate_url: null,
+};
+
 const INIT_STATE = {
   socket: connectedSocket,
   jsonrpc: { ...jsonrpc, ...config.RPC },
@@ -30,8 +35,7 @@ const INIT_STATE = {
   profile: profile,
   created_name: window.localStorage.getItem('shinedMe:created::name'),
   created_avatart: window.localStorage.getItem('shinedMe:created::avatar'),
-  photo: null,
-  affiliate_url: null,
+  upload: upload,
 };
 
 const reducer = (state, action) => {
@@ -73,16 +77,19 @@ const reducer = (state, action) => {
       return { ...state, profile: { ...state.profile, avatar: action.avatar } };
 
     case 'PHOTO':
-      return { ...state, photo: action.photo };
+      return { ...state, upload: { ...state.upload, photo: action.photo } };
 
     case 'CLEAR_PHOTO':
-      return { ...state, photo: null };
+      return { ...state, upload: { ...state.upload, photo: null } };
 
     case 'SET_URL':
-      return { ...state, affiliate_url: action.affiliate_url };
+      return {
+        ...state,
+        upload: { ...state.upload, affiliate_url: action.affiliate_url },
+      };
 
     case 'CLEAR_URL':
-      return { ...state, affiliate_url: null };
+      return { ...state, upload: { ...state.upload, affiliate_url: null } };
 
     default:
       throw new Error(`Unknown type: ${action.type}`);

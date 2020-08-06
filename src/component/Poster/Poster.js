@@ -38,7 +38,11 @@ export default () => {
           created_name ? created() : clicked();
         }}
       />
-      <p className="text">Login here</p>
+      {created_name ? (
+        <p className="text">Please refresh the page and then click</p>
+      ) : (
+        <p className="text">Login here</p>
+      )}
     </>
   );
 

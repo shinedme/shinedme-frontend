@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Evaluation.css';
+import { useSubstrate } from '../../../substrate-lib';
+import { TxButton } from '../../../substrate-lib/components';
 
-export default () => {
-  const likeCurrentPhoto = () => {
-    console.log('like');
-  };
+export default ({ currentPhoto }) => {
+  const { signer } = useSubstrate();
+  const [status, setStatus] = useState('');
   const openBoard = () => {
     console.log('open bloard');
   };
@@ -13,13 +14,22 @@ export default () => {
   };
   return (
     <div className="home-eva">
-      <div className="emoji first" onClick={likeCurrentPhoto}>
-        <p>
-          Like it!
-          <span role="img" aria-label="star">
-            🥳
-          </span>{' '}
-        </p>
+      <div className="emoji first">
+        {signer ? (
+          <TxButton
+            accountPair={signer}
+            label={'🥳 Like it!'}
+            setStatus={setStatus}
+            type="SIGNED-TX"
+            attrs={{
+              palletRpc: 'erc20',
+              callable: 'likePhoto',
+              inputParams: [currentPhoto],
+              paramFields: [true],
+            }}
+            style={{ fontSize: '1.5rem', padding: '10px' }}
+          />
+        ) : null}
       </div>
       <div className="emoji second" onClick={openBoard}>
         <p>

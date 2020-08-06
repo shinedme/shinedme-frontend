@@ -9,7 +9,7 @@ import { AiOutlineHome } from 'react-icons/ai';
 import './Upload.css';
 
 export default () => {
-  const { saveToIpfs, photo, signer, affiliate_url, saveUrl } = useSubstrate();
+  const { saveToIpfs, signer, upload, saveUrl } = useSubstrate();
   const hiddenFileInput = useRef(null);
   const [status, setStatus] = useState('');
 
@@ -34,7 +34,7 @@ export default () => {
       </Link>
       <div className="upload-img">
         <div className="img-preview">
-          <img src={photo} alt="" />
+          <img src={upload.photo} alt="" />
         </div>
       </div>
       <div>
@@ -68,7 +68,7 @@ export default () => {
             attrs={{
               palletRpc: 'erc20',
               callable: 'updateUser',
-              inputParams: [photo, affiliate_url],
+              inputParams: [upload.photo, upload.affiliate_url],
               paramFields: [true, { optional: true }],
             }}
             style={{ fontSize: '1.5rem' }}
