@@ -1,0 +1,50 @@
+#cs {
+  display: none;
+}
+
+#photo {
+  width: 500px;
+  height: 500px;
+  max-width: 50%;
+  cursor: pointer;
+}
+
+#cs2 {
+  width: 500px;
+  height: 500px;
+  max-width: 50%;
+  margin-left: 5%;
+}
+
+.control {
+  display: flex;
+  flex-flow: row;
+  margin: 10px 24px;
+  justify-content: space-evenly;;
+}
+
+.colorpicker {
+  display: flex;
+  flex-flow: row;
+  color: #663300;
+}
+
+.result{
+  border: 2px solid #24272a;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  cursor: grab;
+}
+
+.icon-title {
+    margin: 0 2px;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.icon-text {
+  margin-top: 0 2px;
+  font-size: 1.2rem;
+}

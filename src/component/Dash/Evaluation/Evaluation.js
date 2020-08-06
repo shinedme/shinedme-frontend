@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import './Evaluation.css';
+import { Link } from 'react-router-dom';
 import { useSubstrate } from '../../../substrate-lib';
 import { TxButton } from '../../../substrate-lib/components';
+import './Evaluation.css';
 
 export default ({ currentPhoto }) => {
   const { signer } = useSubstrate();
@@ -33,10 +34,12 @@ export default ({ currentPhoto }) => {
       </div>
       <div className="emoji second" onClick={openBoard}>
         <p>
-          Change Style
-          <span role="img" aria-label="smile">
-            🤩
-          </span>{' '}
+          <Link to="/editor">
+            Change Style
+            <span role="img" aria-label="smile">
+              🤩
+            </span>{' '}
+          </Link>
         </p>
       </div>
 

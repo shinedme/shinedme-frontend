@@ -67,7 +67,7 @@ export default () => {
             type="SIGNED-TX"
             attrs={{
               palletRpc: 'erc20',
-              callable: 'updateUser',
+              callable: 'uploadPhoto',
               inputParams: [upload.photo, upload.affiliate_url],
               paramFields: [true, { optional: true }],
             }}

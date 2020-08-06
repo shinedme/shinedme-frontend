@@ -9,6 +9,7 @@ import Upload from './component/Upload/Upload';
 import Profile from './component/Profile/Profile';
 import Header from './component/Header/Header';
 import Login from './component/Landing/Login';
+import Editor from './component/Editor/Editor';
 
 import './App.css';
 
@@ -38,6 +39,7 @@ export default () => {
           <Route exact path="/dash" component={Dash} />
           <Route exact path="/upload" component={Upload} />
           <Route exact path="/profile/:id" component={Profile} />
+          <Route exact path="/editor" component={Editor} />
           <Route
             render={() => (
               <h1>
