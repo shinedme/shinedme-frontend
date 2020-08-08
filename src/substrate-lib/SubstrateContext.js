@@ -31,7 +31,7 @@ const INIT_STATE = {
   api: null,
   apiError: null,
   apiState: null,
-  ipfs: ipfsClient('/ip4/127.0.0.1/tcp/5001'),
+  ipfs: ipfsClient(`http://${process.env.IPFS_HOST || 'localhost'}:5001`),
   profile: profile,
   created_name: window.localStorage.getItem('shinedMe:created::name'),
   created_avatar: window.localStorage.getItem('shinedMe:created::avatar'),

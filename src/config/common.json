@@ -1,5 +1,14 @@
 {
   "APP_NAME": "substrate-front-end-tutorial",
   "DEVELOPMENT_KEYRING": true,
-  "RPC": {}
+  "RPC": {},
+  "CUSTOM_TYPES": {
+    "Address": "AccountId",
+    "LookupSource": "AccountId",
+    "TokenBalance": "u128",
+    "AccountProfile": {
+      "name": "Vec<u8>",
+      "avatar": "Vec<u8>"
+    }
+  }
 }
