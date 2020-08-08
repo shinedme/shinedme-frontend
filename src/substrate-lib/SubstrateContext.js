@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
 import jsonrpc from '@polkadot/types/interfaces/jsonrpc';
 import queryString from 'query-string';
 import config from '../config';
@@ -16,7 +16,11 @@ const profile = {
 
 const upload = {
   photo: null,
-  affiliate_url: null,
+  affiliate_url: '',
+};
+
+const download = {
+  photos: null,
 };
 
 const INIT_STATE = {
@@ -36,6 +40,7 @@ const INIT_STATE = {
   created_name: window.localStorage.getItem('shinedMe:created::name'),
   created_avatar: window.localStorage.getItem('shinedMe:created::avatar'),
   upload: upload,
+  download: download,
 };
 
 const reducer = (state, action) => {
@@ -89,13 +94,19 @@ const reducer = (state, action) => {
       };
 
     case 'CLEAR_URL':
-      return { ...state, upload: { ...state.upload, affiliate_url: null } };
+      return { ...state, upload: { ...state.upload, affiliate_url: '' } };
 
     case 'CREATED_NAME':
       return { ...state, created_name: action.created_name };
 
     case 'CREATED_AVATAR':
       return { ...state, created_avatar: action.created_avatar };
+
+    case 'PHOTOS':
+      return {
+        ...state,
+        download: { ...state.download, photos: action.photos },
+      };
 
     default:
       throw new Error(`Unknown type: ${action.type}`);

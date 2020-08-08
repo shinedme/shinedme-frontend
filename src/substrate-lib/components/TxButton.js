@@ -13,6 +13,11 @@ function TxButton({
   attrs = null,
   disabled = false,
   preop = null,
+  setLikes,
+  setComments,
+  comments,
+  likes,
+  remark,
 }) {
   // Hooks
   const {
@@ -20,8 +25,7 @@ function TxButton({
     profile,
     clearUrl,
     clearPhoto,
-    photo,
-    affiliate_url,
+    upload,
     setName,
     setAvatar,
   } = useSubstrate();
@@ -71,15 +75,19 @@ function TxButton({
     if (callable === 'updateUser') {
       setName(profile.nickname);
       setAvatar(profile.avatar);
+      window.localStorage.setItem('shinedMe:created::name', profile.nickname);
+      window.localStorage.setItem('shinedMe:created::avatar', profile.avatar);
     }
-    if (photo) {
+    if (upload.photo) {
       clearPhoto();
-    }
-    if (affiliate_url) {
       clearUrl();
     }
-    window.localStorage.setItem('shinedMe:created::name', profile.nickname);
-    window.localStorage.setItem('shinedMe:created::avatar', profile.avatar);
+    if (setLikes) {
+      setLikes(likes + 1);
+    }
+    if (setComments) {
+      setComments([...comments, remark]);
+    }
   };
 
   const unsignedTx = async () => {

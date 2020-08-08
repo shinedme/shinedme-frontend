@@ -2,13 +2,12 @@
 import React from 'react';
 import './Photo.css';
 
-export default () => {
-  const currentPhotoUrl = '';
+export default ({ src }) => {
   return (
     <div className="home-img">
       <img
-        src={currentPhotoUrl}
-        alt="Oops! No photo available now, please wait or refresh"
+        src={src}
+        alt="Oops! NO more photos available, please upload your own and join with shined me community"
         className="img-set"
       />
     </div>

@@ -14,6 +14,7 @@ export default ({ comments, likes }) => {
     height: 100%;
     border : 1px dotted #fdfb8b;
     border-radius: 10px;
+    max-height: 600px;
   }
   `}</style>
     </div>

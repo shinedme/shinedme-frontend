@@ -1,7 +1,6 @@
 import { useContext, useEffect, useCallback } from 'react';
 import { ApiPromise, WsProvider, Keyring } from '@polkadot/api';
-// import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
-// import keyring from '@polkadot/ui-keyring';
+import { u8aToString } from '@polkadot/util';
 
 // import config from '../config';
 import { SubstrateContext } from './SubstrateContext';
@@ -47,6 +46,25 @@ const useSubstrate = () => {
   useEffect(() => {
     connect();
   }, [connect]);
+
+  const queryPhotos = useCallback(async () => {
+    if (api) {
+      let query = await api.query;
+      if (query.erc20) {
+        let photos = await query.erc20.photos.keys();
+        photos = photos.map((photo) => {
+          let data = u8aToString(photo).toString();
+          let index = data.indexOf('https');
+          return data.slice(index);
+        });
+        dispatch({ type: 'PHOTOS', photos });
+      }
+    }
+  }, [api]);
+
+  useEffect(() => {
+    queryPhotos();
+  }, [queryPhotos]);
 
   const saveToIpfs = useCallback(
     async ([file], type) => {

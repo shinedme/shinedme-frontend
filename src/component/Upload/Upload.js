@@ -6,10 +6,11 @@ import { TxButton } from '../../substrate-lib/components';
 
 import { RiUploadCloud2Line } from 'react-icons/ri';
 import { AiOutlineHome } from 'react-icons/ai';
+import { BsPersonBoundingBox } from 'react-icons/bs';
 import './Upload.css';
 
 export default () => {
-  const { saveToIpfs, signer, upload, saveUrl } = useSubstrate();
+  const { saveToIpfs, signer, upload, saveUrl, created_name } = useSubstrate();
   const hiddenFileInput = useRef(null);
   const [status, setStatus] = useState('');
 
@@ -27,11 +28,26 @@ export default () => {
     saveUrl(event.target.value);
   };
 
+  const validateUrl = (url) => {
+    const expression = /^(http(?:s)?\:\/\/[a-zA-Z0-9]+(?:(?:\.|\-)[a-zA-Z0-9]+)+(?:\:\d+)?(?:\/[\w\-]+)*(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*)$/gi;
+    const regex = new RegExp(expression);
+    if (url.match(regex) || url === '') {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <div className="upload">
-      <Link to="/dash">
-        <AiOutlineHome className="close" />
-      </Link>
+      <div style={{ textAlign: 'right' }}>
+        <Link to="/dash">
+          <AiOutlineHome className="close" />
+        </Link>
+        <Link to={{ pathname: '/profile/' + created_name }}>
+          <BsPersonBoundingBox className="close" />
+        </Link>
+      </div>
       <div className="upload-img">
         <div className="img-preview">
           <img src={upload.photo} alt="" />
@@ -39,7 +55,13 @@ export default () => {
       </div>
       <div>
         <label>Link to buy:</label>
-        <input type="text" name="url" id="url" onChange={changeUrl} />
+        <input
+          type="text"
+          name="url"
+          id="url"
+          onChange={changeUrl}
+          placeholder="optional"
+        />
       </div>
       <div>
         <button
@@ -65,6 +87,7 @@ export default () => {
             label={'😇 Upload'}
             setStatus={setStatus}
             type="SIGNED-TX"
+            disabled={!upload.photo || !validateUrl(upload.affiliate_url)}
             attrs={{
               palletRpc: 'erc20',
               callable: 'uploadPhoto',
@@ -74,7 +97,6 @@ export default () => {
             style={{ fontSize: '1.5rem' }}
           />
         ) : null}
-
         <div style={{ overflowWrap: 'break-word' }}>{status}</div>
       </div>
     </div>
