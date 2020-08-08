@@ -14,7 +14,7 @@ import Editor from './component/Editor/Editor';
 import './App.css';
 
 export default () => {
-  const { created_name } = useSubstrate();
+  const { created_name, created_avatar } = useSubstrate();
   let routes = (
     <Switch>
       <Route exact path="/" component={Poster} />
@@ -32,7 +32,7 @@ export default () => {
   if (created_name) {
     routes = (
       <>
-        <Header me={created_name} />
+        <Header me={created_name} src={created_avatar} />
         <Switch>
           <Route exact path="/" component={Poster} />
           <Route exact path="/login" component={Login} />

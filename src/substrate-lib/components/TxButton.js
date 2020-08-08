@@ -13,7 +13,6 @@ function TxButton({
   attrs = null,
   disabled = false,
   preop = null,
-  setCreated = null,
 }) {
   // Hooks
   const {
@@ -23,6 +22,8 @@ function TxButton({
     clearPhoto,
     photo,
     affiliate_url,
+    setName,
+    setAvatar,
   } = useSubstrate();
   const [unsub, setUnsub] = useState(null);
   const { palletRpc, callable, inputParams, paramFields } = attrs;
@@ -67,8 +68,9 @@ function TxButton({
       .signAndSend(fromAcct, txResHandler)
       .catch(txErrHandler);
     setUnsub(() => unsub);
-    if (setCreated) {
-      setCreated(true);
+    if (callable === 'updateUser') {
+      setName(profile.nickname);
+      setAvatar(profile.avatar);
     }
     if (photo) {
       clearPhoto();

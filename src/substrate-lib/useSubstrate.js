@@ -78,6 +78,14 @@ const useSubstrate = () => {
     dispatch({ type: 'NICKNAME', nickname });
   };
 
+  const setName = (name) => {
+    dispatch({ type: 'CREATED_NAME', created_name: name });
+  };
+
+  const setAvatar = (url) => {
+    dispatch({ type: 'CREATED_AVATAR', created_avatar: url });
+  };
+
   const saveUrl = (url) => {
     dispatch({ type: 'SET_URL', affiliate_url: url });
   };
@@ -90,7 +98,16 @@ const useSubstrate = () => {
     dispatch({ type: 'CLEAR_URL' });
   };
 
-  return { ...state, saveToIpfs, saveNickname, clearPhoto, clearUrl, saveUrl };
+  return {
+    ...state,
+    saveToIpfs,
+    saveNickname,
+    clearPhoto,
+    clearUrl,
+    saveUrl,
+    setName,
+    setAvatar,
+  };
 };
 
 export default useSubstrate;

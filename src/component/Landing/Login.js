@@ -23,7 +23,6 @@ export default () => {
     created_name,
   } = useSubstrate();
   const [status, setStatus] = useState('');
-  const [created, setCreated] = useState(false);
 
   const changeNickname = (event) => {
     saveNickname(event.target.value);
@@ -58,8 +57,8 @@ export default () => {
     }
   };
 
-  if (created || created_name) {
-    return <Redirect to="/" />;
+  if (created_name) {
+    return <Redirect push to="/" />;
   }
 
   return (
@@ -104,12 +103,10 @@ export default () => {
                   paramFields: [true, true],
                 }}
                 preop={getInitialMoney}
-                setCreated={setCreated}
               />
             ) : (
               ''
             )}
-
             <div style={{ overflowWrap: 'break-word' }}>{status}</div>
           </div>
         </form>

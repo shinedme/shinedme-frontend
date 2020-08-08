@@ -34,7 +34,7 @@ const INIT_STATE = {
   ipfs: ipfsClient('/ip4/127.0.0.1/tcp/5001'),
   profile: profile,
   created_name: window.localStorage.getItem('shinedMe:created::name'),
-  created_avatart: window.localStorage.getItem('shinedMe:created::avatar'),
+  created_avatar: window.localStorage.getItem('shinedMe:created::avatar'),
   upload: upload,
 };
 
@@ -90,6 +90,12 @@ const reducer = (state, action) => {
 
     case 'CLEAR_URL':
       return { ...state, upload: { ...state.upload, affiliate_url: null } };
+
+    case 'CREATED_NAME':
+      return { ...state, created_name: action.created_name };
+
+    case 'CREATED_AVATAR':
+      return { ...state, created_avatar: action.created_avatar };
 
     default:
       throw new Error(`Unknown type: ${action.type}`);

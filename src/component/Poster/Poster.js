@@ -39,7 +39,7 @@ export default () => {
         }}
       />
       {created_name ? (
-        <p className="text">Please refresh the page and then click</p>
+        <p className="text">Start your journey to shining yourself</p>
       ) : (
         <p className="text">Login here</p>
       )}
