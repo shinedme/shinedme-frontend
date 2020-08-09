@@ -20,6 +20,7 @@ export default () => {
 
   const loader = (text) => (
     <div>
+      <p><img src="grid.svg" alt="" width="40" /></p>
       <p>{text}</p>
     </div>
   );
@@ -41,8 +42,8 @@ export default () => {
       {created_name ? (
         <p className="text">Start your journey to shining yourself</p>
       ) : (
-        <p className="text">Login here</p>
-      )}
+          <p className="text">Login here</p>
+        )}
     </>
   );
 
@@ -94,7 +95,7 @@ export default () => {
                   height: randomDimensions,
                   animationDelay: `${
                     i % 2 ? generateRandomNum({ min: 0, max: 20 }) : 0
-                  }s`,
+                    }s`,
                   animationDuration: `${generateRandomNum({
                     min: 10,
                     max: 50,

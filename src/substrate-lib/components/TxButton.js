@@ -18,6 +18,7 @@ function TxButton({
   comments,
   likes,
   remark,
+  labelDone,
 }) {
   // Hooks
   const {
@@ -30,6 +31,7 @@ function TxButton({
     setAvatar,
   } = useSubstrate();
   const [unsub, setUnsub] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { palletRpc, callable, inputParams, paramFields } = attrs;
 
   const isQuery = () => type === 'QUERY';
@@ -45,17 +47,22 @@ function TxButton({
     return fromAcct;
   };
 
-  const txResHandler = ({ status }) =>
+  const txResHandler = ({ status }) => {
     status.isFinalized
       ? setStatus(
-          `😉 Finalized. Block hash: ${status.asFinalized
-            .toString()
-            .slice(0, 8)}`
-        )
+        `😉 Finalized. Block hash: ${status.asFinalized
+          .toString()
+          .slice(0, 8)}`
+      )
       : setStatus(`Current transaction status: ${status.type}`);
+    console.log(status.type)
+    if (status.type == 'InBlock') setLoading('done')
+  }
 
-  const txErrHandler = (err) =>
+  const txErrHandler = (err) => {
     setStatus(`😞 Transaction Failed: ${err.toString()}`);
+    setLoading('done')
+  }
 
   const signedTx = async () => {
     const fromAcct = await getFromAcct();
@@ -134,6 +141,8 @@ function TxButton({
 
   const transaction = async (event) => {
     event.preventDefault();
+    event.target.disabled = true;
+    setLoading(true);
     if (preop) {
       await preop();
     }
@@ -223,16 +232,18 @@ function TxButton({
   };
 
   return (
-    <button
-      color={color}
-      style={style}
-      type="submit"
-      onClick={transaction}
-      disabled={disabled || !palletRpc || !callable || !allParamsFilled()}
-      className="shined-me"
-    >
-      {label}
-    </button>
+    <div>
+      {loading === true ? <img src="grid.svg" alt="" width="40" /> :
+        <button
+          color={color}
+          style={style}
+          type="submit"
+          onClick={transaction}
+          disabled={disabled || !palletRpc || !callable || !allParamsFilled()}
+          className="shined-me">
+          {loading === 'done' ? (labelDone || label) : label}
+        </button>}
+    </div>
   );
 }
 

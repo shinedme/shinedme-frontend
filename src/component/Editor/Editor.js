@@ -33,7 +33,7 @@ export default () => {
     setCanvas(
       document.querySelector('#cs'),
       document.querySelector('#photo'),
-      () => {}
+      () => { }
     );
     var p = document;
     p = p.querySelector('#cs');
@@ -140,7 +140,7 @@ export default () => {
     setCanvas(
       document.querySelector('#cs'),
       document.querySelector('#photo'),
-      () => {}
+      () => { }
     );
   }, []);
 
@@ -228,6 +228,7 @@ export default () => {
               <TxButton
                 accountPair={signer}
                 label={'save'}
+                labelDone={'saved'}
                 setStatus={setStatus}
                 type="SIGNED-TX"
                 disabled={!upload.photo}
@@ -344,5 +345,5 @@ function createFileFromUrl(path, url, callback) {
 createFileFromUrl(
   'haarcascade_frontalface_default.xml',
   'haarcascade_frontalface_default.xml',
-  () => {}
+  () => { }
 );

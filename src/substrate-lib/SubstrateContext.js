@@ -42,7 +42,7 @@ const INIT_STATE = {
   api: null,
   apiError: null,
   apiState: null,
-  ipfs: ipfsClient(`http://${process.env.IPFS_HOST || 'localhost'}:5001`),
+  ipfs: ipfsClient(process.env.IPFS_URL || '/ip4/127.0.0.1/tcp/5001'),
   profile: profile,
   account: account,
   upload: upload,
