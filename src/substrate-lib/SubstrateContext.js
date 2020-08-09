@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import PropTypes, { number } from 'prop-types';
+import PropTypes from 'prop-types';
 import jsonrpc from '@polkadot/types/interfaces/jsonrpc';
 import queryString from 'query-string';
 import config from '../config';
@@ -20,7 +20,14 @@ const upload = {
 };
 
 const download = {
-  photos: null,
+  photos: [],
+  index: 0,
+};
+
+const account = {
+  created_name: null,
+  created_avatar: null,
+  selfies: [],
 };
 
 const INIT_STATE = {
@@ -37,8 +44,7 @@ const INIT_STATE = {
   apiState: null,
   ipfs: ipfsClient(`http://${process.env.IPFS_HOST || 'localhost'}:5001`),
   profile: profile,
-  created_name: window.localStorage.getItem('shinedMe:created::name'),
-  created_avatar: window.localStorage.getItem('shinedMe:created::avatar'),
+  account: account,
   upload: upload,
   download: download,
 };
@@ -97,10 +103,22 @@ const reducer = (state, action) => {
       return { ...state, upload: { ...state.upload, affiliate_url: '' } };
 
     case 'CREATED_NAME':
-      return { ...state, created_name: action.created_name };
+      return {
+        ...state,
+        account: { ...state.account, created_name: action.created_name },
+      };
 
     case 'CREATED_AVATAR':
-      return { ...state, created_avatar: action.created_avatar };
+      return {
+        ...state,
+        account: { ...state.account, created_avatar: action.created_avatar },
+      };
+
+    case 'SELFIES':
+      return {
+        ...state,
+        account: { ...state.account, selfies: action.selfies },
+      };
 
     case 'PHOTOS':
       return {
@@ -108,6 +126,17 @@ const reducer = (state, action) => {
         download: { ...state.download, photos: action.photos },
       };
 
+    case 'ADD':
+      return {
+        ...state,
+        download: { ...state.download, index: state.index + 1 },
+      };
+
+    case 'MINUS':
+      return {
+        ...state,
+        download: { ...state.download, index: state.index - 1 },
+      };
     default:
       throw new Error(`Unknown type: ${action.type}`);
   }

@@ -10,7 +10,7 @@ const useSubstrate = () => {
   const [state, dispatch] = useContext(SubstrateContext);
   // `useCallback` so that returning memoized function and not created
   //   everytime, and thus re-render.
-  const { api, socket, jsonrpc, types, mnemonic } = state;
+  const { api, socket, jsonrpc, types, mnemonic, signer } = state;
 
   const connect = useCallback(async () => {
     if (api) return;
@@ -60,11 +60,36 @@ const useSubstrate = () => {
         dispatch({ type: 'PHOTOS', photos });
       }
     }
-  }, [api]);
+  }, [api, dispatch]);
 
   useEffect(() => {
     queryPhotos();
   }, [queryPhotos]);
+
+  const queryAccount = useCallback(async () => {
+    if (api && signer) {
+      let query = await api.query;
+      if (query.erc20) {
+        let account = await query.erc20.accounts(signer.address);
+        let name = u8aToString(account.name).toString();
+        let avatar = u8aToString(account.avatar).toString();
+        let selfies = account.photos.map((photo) => {
+          let data = u8aToString(photo).toString();
+          let index = data.indexOf('https');
+          return data.slice(index);
+        });
+        dispatch({ type: 'CREATED_NAME', created_name: name });
+        dispatch({ type: 'CREATED_AVATAR', created_avatar: avatar });
+        dispatch({ type: 'SELFIES', selfies });
+        window.localStorage.setItem('shinedMe:created::name', name);
+        window.localStorage.setItem('shinedMe:created::avatar', avatar);
+      }
+    }
+  }, [api, signer, dispatch]);
+
+  useEffect(() => {
+    queryAccount();
+  }, [queryAccount]);
 
   const saveToIpfs = useCallback(
     async ([file], type) => {
@@ -116,6 +141,17 @@ const useSubstrate = () => {
     dispatch({ type: 'CLEAR_URL' });
   };
 
+  const previous = () => {
+    if (state.download.index !== 0) {
+      dispatch({ type: 'ADD' });
+    }
+  };
+  const next = () => {
+    if (state.download.index !== state.download.photos.length - 1) {
+      dispatch({ type: 'MINUS' });
+    }
+  };
+
   return {
     ...state,
     saveToIpfs,
@@ -125,6 +161,8 @@ const useSubstrate = () => {
     saveUrl,
     setName,
     setAvatar,
+    previous,
+    next,
   };
 };
 

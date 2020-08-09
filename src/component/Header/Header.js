@@ -8,7 +8,7 @@ export default ({ me, src }) => {
     <header className="Toolbar">
       <Avatar src={src} />
       <div className="nav">
-        <Link to={{ pathname: '/profile/' + me }}>
+        <Link to={{ pathname: '/profile/' }}>
           <p>{me}</p>
         </Link>
       </div>

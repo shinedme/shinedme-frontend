@@ -8,7 +8,15 @@
     "TokenBalance": "u128",
     "AccountProfile": {
       "name": "Vec<u8>",
-      "avatar": "Vec<u8>"
+      "avatar": "Vec<u8>",
+      "photos": "Vec<Vec<u8>>"
+    },
+    "PhotoInfo": {
+      "owner": "AccountId",
+    "affiliate_url": "Option<Vec<u8>>",
+    "likes": "Vec<AccountId>",
+    "variants": "Vec<Vec<u8>>",
+    "comments": "Vec<Vec<u8>>"
     }
   }
 }

@@ -15,13 +15,13 @@ export default ({ comments, likes }) => {
     border : 1px dotted #fdfb8b;
     border-radius: 10px;
     max-height: 600px;
-  }
+  }/
   `}</style>
     </div>
   );
 };
 
-const Comment = ({ comment }) => {
+export const Comment = ({ comment }) => {
   return (
     <div className="comment">
       {comment}

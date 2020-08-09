@@ -3,15 +3,15 @@
 }
 
 #photo {
-  width: 500px;
-  height: 500px;
+  width: 340px;
+  height: 510px;
   max-width: 50%;
   cursor: pointer;
 }
 
 #cs2 {
-  width: 500px;
-  height: 500px;
+  width: 340px;
+  height: 510px;
   max-width: 50%;
   margin-left: 5%;
 }

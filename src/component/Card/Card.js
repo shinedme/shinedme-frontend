@@ -1,12 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-export default ({ photoUrl }) => {
+export default ({ photoUrl, open }) => {
   return (
-    <div className="card">
-      <Link to={{ pathname: '/dash', hash: photoUrl }}>
-        <img style={{ width: '100%', height: '100%' }} src={photoUrl} alt="" />
-      </Link>
+    <div className="card" onClick={() => open(photoUrl)}>
+      <img style={{ width: '100%', height: '100%' }} src={photoUrl} alt="" />
       <style>{`
       .card {
         color: #663300;
@@ -26,6 +23,7 @@ export default ({ photoUrl }) => {
         box-shadow: 2px 2px 1px 0 rgba(204, 204, 204,0.9);
         display: inline-block;
         margin:5px;
+        cursor: pointer;
       }
 `}</style>
     </div>

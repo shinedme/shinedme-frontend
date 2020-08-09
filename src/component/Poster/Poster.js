@@ -11,7 +11,7 @@ export default () => {
     apiError,
     keyringState,
     signerState,
-    created_name,
+    account: created_name,
   } = useSubstrate();
 
   const history = useHistory();

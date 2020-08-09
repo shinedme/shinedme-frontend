@@ -1,24 +1,22 @@
-import React, { useRef, useState } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
+import ReactCrop from 'react-image-crop';
 import { Link } from 'react-router-dom';
+import 'react-image-crop/dist/ReactCrop.css';
 
 import { useSubstrate } from '../../substrate-lib';
 import { TxButton } from '../../substrate-lib/components';
 
 import { RiUploadCloud2Line } from 'react-icons/ri';
 import { AiOutlineHome } from 'react-icons/ai';
-import { BsPersonBoundingBox } from 'react-icons/bs';
+import { BsPeopleCircle } from 'react-icons/bs';
 import './Upload.css';
+
+const pixelRatio = 4;
 
 export default () => {
   const { saveToIpfs, signer, upload, saveUrl, created_name } = useSubstrate();
   const hiddenFileInput = useRef(null);
   const [status, setStatus] = useState('');
-
-  const captureFile = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    saveToIpfs(event.target.files, 'PHOTO');
-  };
 
   const openFile = () => {
     hiddenFileInput.current.click();
@@ -38,30 +36,84 @@ export default () => {
     }
   };
 
+  //crop part
+  const [upImg, setUpImg] = useState();
+  const imgRef = useRef(null);
+  const previewCanvasRef = useRef(null);
+  const [crop, setCrop] = useState({
+    unit: '%',
+    width: 50,
+    height: 50,
+  });
+  const [completedCrop, setCompletedCrop] = useState(null);
+
+  const onSelectFile = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => setUpImg(reader.result));
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  const onLoad = useCallback((img) => {
+    imgRef.current = img;
+  }, []);
+
+  useEffect(() => {
+    if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
+      return;
+    }
+
+    const image = imgRef.current;
+    const canvas = previewCanvasRef.current;
+    const crop = completedCrop;
+
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = crop.width * pixelRatio;
+    canvas.height = crop.height * pixelRatio;
+
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    ctx.imageSmoothingEnabled = false;
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
+
+    document.querySelector('#canvas').toBlob(function (blob) {
+      console.log(blob);
+      let file = new File([blob], 'selected.png');
+      saveToIpfs([file], 'PHOTO');
+    });
+  }, [completedCrop, saveToIpfs]);
+
+  console.log(upload);
+
   return (
-    <div className="upload">
-      <div style={{ textAlign: 'right' }}>
+    <div
+      style={{
+        marginTop: '110px',
+        overflowY: 'scroll',
+        height: 'calc(100vh - 110px)',
+      }}
+    >
+      <div style={{ position: 'absolute', top: '120px', right: '50px' }}>
         <Link to="/dash">
           <AiOutlineHome className="close" />
         </Link>
         <Link to={{ pathname: '/profile/' + created_name }}>
-          <BsPersonBoundingBox className="close" />
+          <BsPeopleCircle className="close" />
         </Link>
-      </div>
-      <div className="upload-img">
-        <div className="img-preview">
-          <img src={upload.photo} alt="" />
-        </div>
-      </div>
-      <div>
-        <label>Link to buy:</label>
-        <input
-          type="text"
-          name="url"
-          id="url"
-          onChange={changeUrl}
-          placeholder="optional"
-        />
       </div>
       <div>
         <button
@@ -77,7 +129,7 @@ export default () => {
             id="imageInput"
             type="file"
             ref={hiddenFileInput}
-            onChange={captureFile}
+            onChange={onSelectFile}
             style={{ display: 'none' }}
           />
         </button>
@@ -99,6 +151,32 @@ export default () => {
         ) : null}
         <div style={{ overflowWrap: 'break-word' }}>{status}</div>
       </div>
+      <div style={{ marginBottom: '10px' }}>
+        <label>Link to buy : </label>
+        <input
+          type="text"
+          name="url"
+          id="url"
+          onChange={changeUrl}
+          placeholder="optional"
+        />
+      </div>
+      <ReactCrop
+        src={upImg}
+        onImageLoaded={onLoad}
+        crop={crop}
+        onChange={(c) => setCrop(c)}
+        onComplete={(c) => setCompletedCrop(c)}
+        className="upload-img"
+      />
+      <canvas
+        ref={previewCanvasRef}
+        style={{
+          width: completedCrop?.width ?? 0,
+          height: completedCrop?.height ?? 0,
+        }}
+        id="canvas"
+      />
     </div>
   );
 };

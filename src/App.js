@@ -10,11 +10,13 @@ import Profile from './component/Profile/Profile';
 import Header from './component/Header/Header';
 import Login from './component/Landing/Login';
 import Editor from './component/Editor/Editor';
+import Gallery from './component/Gallery/Gallery';
 
 import './App.css';
 
 export default () => {
-  const { created_name, created_avatar } = useSubstrate();
+  const { account } = useSubstrate();
+  const { created_name, created_avatar } = account;
   let routes = (
     <Switch>
       <Route exact path="/" component={Poster} />
@@ -38,8 +40,9 @@ export default () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/dash" component={Dash} />
           <Route exact path="/upload" component={Upload} />
-          <Route exact path="/profile/:id" component={Profile} />
+          <Route exact path="/profile" component={Profile} />
           <Route exact path="/editor" component={Editor} />
+          <Route exact path="/gallery" component={Gallery} />
           <Route
             render={() => (
               <h1>

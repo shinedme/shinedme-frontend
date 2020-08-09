@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSubstrate } from '../../substrate-lib';
 import { TxButton } from '../../substrate-lib/components';
 
@@ -8,8 +8,9 @@ import './Editor.css';
 /* global cv */
 
 export default () => {
+  const location = useLocation();
+  const photo = location.state.photo;
   const { saveToIpfs, signer, upload } = useSubstrate();
-  const photo = 'photo';
   const [status, setStatus] = useState('');
   let [from, setFrom] = useState('#000000');
   let [to, setTo] = useState('#ffffff');
@@ -34,10 +35,10 @@ export default () => {
       document.querySelector('#photo'),
       () => {}
     );
-    var p = document
-      .querySelector('#cs')
-      .getContext('2d')
-      .getImageData(x, y, 1, 1).data;
+    var p = document;
+    p = p.querySelector('#cs');
+    p = p.getContext('2d');
+    p = p.getImageData(x, y, 1, 1).data;
     console.log(p);
     setFrom(rgbToHex(p[0], p[1], p[2]));
   }
@@ -151,20 +152,20 @@ export default () => {
         height: 'calc(100vh - 110px)',
       }}
     >
-      <div style={{ position: 'absolute', top: '150px;', right: '50px' }}>
+      <div style={{ position: 'absolute', top: '150px', right: '50px' }}>
         <Link to="/dash">
           <AiOutlineHome className="close" />
         </Link>
       </div>
       <img
-        src="https://gateway.ipfs.io/ipfs/QmNn3N1d1JB6RBXiEdsqoENViDELjX1CU8nzrM93mH9sPa"
         crossOrigin="anonymous"
+        src={photo}
         id="photo"
         onClick={setFromColor}
         alt=""
       />
       <canvas id="cs2"></canvas>
-      <canvas id="cs"></canvas>
+      <canvas id="cs" crossOrigin="anonymous"></canvas>
       <div className="control">
         <div className="colorpicker">
           <div>
@@ -229,6 +230,7 @@ export default () => {
                 label={'save'}
                 setStatus={setStatus}
                 type="SIGNED-TX"
+                disabled={!upload.photo}
                 attrs={{
                   palletRpc: 'erc20',
                   callable: 'editPhoto',
@@ -310,10 +312,14 @@ function rgbToHex(r, g, b) {
 }
 
 function setCanvas(el, image, callback) {
+  image.crossOrigin = 'anonymous';
+  image.setAttribute('crossOrigin', 'anonymous');
+  el.crossOrigin = 'anonymous';
   el.width = image.width; // img width
   el.height = image.height; // img height
   // draw image in canvas tag
   el.getContext('2d').drawImage(image, 0, 0, image.width, image.height);
+  console.log(el.toDataURL());
   return callback();
 }
 

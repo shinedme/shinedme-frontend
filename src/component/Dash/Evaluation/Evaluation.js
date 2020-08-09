@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useSubstrate } from '../../../substrate-lib';
 import { TxButton } from '../../../substrate-lib/components';
 import './Evaluation.css';
@@ -32,16 +31,6 @@ export default ({ photo, setLikes, setComments, comments, likes }) => {
           />
         ) : null}
       </div>
-      <div className="emoji second">
-        <p>
-          <Link to="/editor">
-            Change Style
-            <span role="img" aria-label="smile">
-              🤩
-            </span>{' '}
-          </Link>
-        </p>
-      </div>
 
       <div className="home-comment">
         <textarea
@@ -62,7 +51,7 @@ export default ({ photo, setLikes, setComments, comments, likes }) => {
               palletRpc: 'erc20',
               callable: 'commentPhoto',
               inputParams: [photo, remark],
-              paramFields: [true, { optional: true }],
+              paramFields: [true, true],
             }}
             style={{ fontSize: '1.5rem', padding: '10px' }}
             setComments={setComments}
@@ -71,6 +60,7 @@ export default ({ photo, setLikes, setComments, comments, likes }) => {
           />
         ) : null}
       </div>
+      <div style={{ overflowWrap: 'break-word' }}>{status}</div>
     </div>
   );
 };

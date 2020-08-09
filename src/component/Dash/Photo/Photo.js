@@ -2,7 +2,7 @@
 import React from 'react';
 import './Photo.css';
 
-export default ({ src }) => {
+export default ({ src, affUrl }) => {
   return (
     <div className="home-img">
       <img
