@@ -17,6 +17,7 @@ export default ({ photo, setLikes, setComments, comments, likes }) => {
           <TxButton
             accountPair={signer}
             label={'🥳 Like it!'}
+            labelDone={'🥳 Liked!'}
             setStatus={setStatus}
             type="SIGNED-TX"
             attrs={{

@@ -20,8 +20,9 @@ export default () => {
     profile,
     signer,
     api,
-    created_name,
+    account
   } = useSubstrate();
+  const { created_name } = account
   const [status, setStatus] = useState('');
 
   const changeNickname = (event) => {
@@ -64,9 +65,6 @@ export default () => {
   return (
     <div className="login account">
       <div className="log-in">
-        <Link to="/">
-          <AiOutlineHome className="close" />
-        </Link>
         <form id="capture-media">
           <p>Please choose an avatar(profile photo)</p>
           {profile.avatar ? (

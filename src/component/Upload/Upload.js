@@ -67,6 +67,30 @@ export default () => {
     const image = imgRef.current;
     const canvas = previewCanvasRef.current;
     const crop = completedCrop;
+    console.log(image.width)
+    console.log(image.height)
+    console.log(crop.width)
+    console.log(crop.height)
+
+    if (crop.width <= 0) {
+      crop.x = crop.x + crop.width
+      crop.width = -crop.width
+    }
+    if (crop.height <= 0) {
+      crop.y = crop.y + crop.height
+      crop.height = -crop.height
+    }
+    if (crop.width < 30 || crop.height < 40) {
+      crop.width = 30
+      crop.height = 40
+    }
+
+    if (crop.height > 4 / 3 * crop.width) {
+      crop.height = 4 / 3 * crop.width
+    } else if (crop.height < 4 / 3 * crop.width) {
+      crop.width = 3 / 4 * crop.height
+    }
+
 
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
@@ -107,14 +131,7 @@ export default () => {
         height: 'calc(100vh - 110px)',
       }}
     >
-      <div style={{ position: 'absolute', top: '120px', right: '50px' }}>
-        <Link to="/dash">
-          <AiOutlineHome className="close" />
-        </Link>
-        <Link to={{ pathname: '/profile/' + created_name }}>
-          <BsPeopleCircle className="close" />
-        </Link>
-      </div>
+
       <div>
         <button
           className="shined-me"
@@ -122,8 +139,7 @@ export default () => {
           onClick={openFile}
         >
           <div className="arrow-link">
-            <RiUploadCloud2Line className="arrow-up" />
-            Post
+            ⬆️ Select an Image
           </div>
           <input
             id="imageInput"
@@ -133,10 +149,22 @@ export default () => {
             style={{ display: 'none' }}
           />
         </button>
+        <div style={{ marginBottom: '10px' }}>
+          <label>Link to buy : </label>
+          <input
+            type="text"
+            name="url"
+            id="url"
+            onChange={changeUrl}
+            placeholder="optional"
+          />
+        </div>
         {signer ? (
           <TxButton
             accountPair={signer}
-            label={'😇 Upload'}
+            label={'😇 Post'}
+            labelDone={'😇 Posted'}
+
             setStatus={setStatus}
             type="SIGNED-TX"
             disabled={!upload.photo || !validateUrl(upload.affiliate_url)}
@@ -151,16 +179,7 @@ export default () => {
         ) : null}
         <div style={{ overflowWrap: 'break-word' }}>{status}</div>
       </div>
-      <div style={{ marginBottom: '10px' }}>
-        <label>Link to buy : </label>
-        <input
-          type="text"
-          name="url"
-          id="url"
-          onChange={changeUrl}
-          placeholder="optional"
-        />
-      </div>
+
       <ReactCrop
         src={upImg}
         onImageLoaded={onLoad}

@@ -4,6 +4,7 @@ import './Photo.css';
 
 export default ({ src, affUrl }) => {
   return (
+    // <div>
     <div className="home-img">
       <img
         src={src}
@@ -11,5 +12,6 @@ export default ({ src, affUrl }) => {
         className="img-set"
       />
     </div>
+    // </div>
   );
 };

@@ -42,30 +42,31 @@ export default () => {
   return (
     <>
       {photos ? (
-        <>
-          <div className="main-style">
+
+        <div className="main-style">
+          <Photo src={photos[index]} affUrl={affUrl} />
+          <div className="rightcolumn">
+            <Info
+              previous={previous}
+              next={next}
+              index={index}
+              photos={photos}
+            />
+            <Evaluation
+              photo={photos[index]}
+              setLikes={setLikes}
+              setComments={setComments}
+              comments={comments}
+              likes={likes}
+            />
             <CommentBoard comments={comments} likes={likes} />
-            <Photo src={photos[index]} affUrl={affUrl} />
-            <div className="rightcolumn">
-              <Info
-                previous={previous}
-                next={next}
-                index={index}
-                photos={photos}
-              />
-              <Evaluation
-                photo={photos[index]}
-                setLikes={setLikes}
-                setComments={setComments}
-                comments={comments}
-                likes={likes}
-              />
-            </div>
+
           </div>
-        </>
+        </div>
+
       ) : (
-        <p>Loading photo</p>
-      )}
+          <p>Loading photo</p>
+        )}
     </>
   );
 };

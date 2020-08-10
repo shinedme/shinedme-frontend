@@ -11,8 +11,10 @@ export default () => {
     apiError,
     keyringState,
     signerState,
-    account: created_name,
+    account,
   } = useSubstrate();
+
+  const { created_name } = account
 
   const history = useHistory();
   const clicked = () => history.push('/login');

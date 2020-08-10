@@ -72,17 +72,19 @@ const useSubstrate = () => {
       if (query.erc20) {
         let account = await query.erc20.accounts(signer.address);
         let name = u8aToString(account.name).toString();
-        let avatar = u8aToString(account.avatar).toString();
-        let selfies = account.photos.map((photo) => {
-          let data = u8aToString(photo).toString();
-          let index = data.indexOf('https');
-          return data.slice(index);
-        });
-        dispatch({ type: 'CREATED_NAME', created_name: name });
-        dispatch({ type: 'CREATED_AVATAR', created_avatar: avatar });
-        dispatch({ type: 'SELFIES', selfies });
-        window.localStorage.setItem('shinedMe:created::name', name);
-        window.localStorage.setItem('shinedMe:created::avatar', avatar);
+        if (name != "") {
+          let avatar = u8aToString(account.avatar).toString();
+          let selfies = account.photos.map((photo) => {
+            let data = u8aToString(photo).toString();
+            let index = data.indexOf('https');
+            return data.slice(index);
+          });
+          dispatch({ type: 'CREATED_NAME', created_name: name });
+          dispatch({ type: 'CREATED_AVATAR', created_avatar: avatar });
+          dispatch({ type: 'SELFIES', selfies });
+          window.localStorage.setItem('shinedMe:created::name', name);
+          window.localStorage.setItem('shinedMe:created::avatar', avatar);
+        }
       }
     }
   }, [api, signer, dispatch]);
@@ -143,12 +145,12 @@ const useSubstrate = () => {
 
   const previous = () => {
     if (state.download.index !== 0) {
-      dispatch({ type: 'ADD' });
+      dispatch({ type: 'MINUS' });
     }
   };
   const next = () => {
     if (state.download.index !== state.download.photos.length - 1) {
-      dispatch({ type: 'MINUS' });
+      dispatch({ type: 'ADD' });
     }
   };
 

@@ -129,13 +129,14 @@ const reducer = (state, action) => {
     case 'ADD':
       return {
         ...state,
-        download: { ...state.download, index: state.index + 1 },
+        download: { ...state.download, index: state.download.index + 1 },
       };
 
     case 'MINUS':
+      console.log(state.download)
       return {
         ...state,
-        download: { ...state.download, index: state.index - 1 },
+        download: { ...state.download, index: state.download.index - 1 },
       };
     default:
       throw new Error(`Unknown type: ${action.type}`);

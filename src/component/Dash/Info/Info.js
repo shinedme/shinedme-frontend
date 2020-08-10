@@ -13,21 +13,24 @@ export default ({ previous, next, index, photos }) => {
   };
   return (
     <div className="home-me">
-      <button className="next" onClick={previous} disabled={index === 0}>
-        PREVIOUS
-      </button>
-      <button
-        className="next"
-        onClick={next}
-        disabled={index === photos.length - 1}
-      >
-        NEXT
-      </button>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <button className="shined-me" onClick={previous} disabled={index === 0}>
+          PREVIOUS
+        </button>
+        <button
+          className="shined-me"
+          onClick={next}
+          disabled={index === photos.length - 1}
+        >
+          NEXT
+        </button>
+      </div>
+
       <button className="shined-me" onClick={openGallery}>
-        🤩 gallery
+        🤩 Ideas
       </button>
       <button className="shined-me" onClick={openEditor}>
-        artist
+        Have an idea?
       </button>
     </div>
   );

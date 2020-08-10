@@ -141,7 +141,6 @@ function TxButton({
 
   const transaction = async (event) => {
     event.preventDefault();
-    event.target.disabled = true;
     setLoading(true);
     if (preop) {
       await preop();
@@ -239,7 +238,7 @@ function TxButton({
           style={style}
           type="submit"
           onClick={transaction}
-          disabled={disabled || !palletRpc || !callable || !allParamsFilled()}
+          disabled={disabled || !palletRpc || !callable || !allParamsFilled() || loading}
           className="shined-me">
           {loading === 'done' ? (labelDone || label) : label}
         </button>}

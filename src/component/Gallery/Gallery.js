@@ -12,7 +12,7 @@ export default () => {
   const location = useLocation();
   const photo = location.state.photo;
   const { api } = useSubstrate();
-  const [paintings, setPaintings] = useState([]);
+  const [paintings, setPaintings] = useState(null);
   const queryPhotos = useCallback(async () => {
     if (api) {
       let query = await api.query;
@@ -42,21 +42,16 @@ export default () => {
 
   return (
     <div className="upload">
-      <div style={{ position: 'absolute', top: '150px;', right: '50px' }}>
-        <Link to="/dash">
-          <AiOutlineHome className="close" />
-        </Link>
-      </div>
-      {paintings.length > 0 ? (
+      {paintings ? (paintings.length > 0 ? (
         paintings.map((p, index) => {
           return <Card photoUrl={p} key={index} open={open} />;
         })
       ) : (
-        <p>
-          No paintings found. You can go back to dashboard and click editor
-          button to make first one.
-        </p>
-      )}
+          <p>
+            No paintings found. You can go back to dashboard and click editor
+            button to make first one.
+          </p>
+        )) : <img src="grid.svg" alt="" width="40" />}
       <Painting show={show} Close={close} photoUrl={url} />
     </div>
   );

@@ -152,11 +152,7 @@ export default () => {
         height: 'calc(100vh - 110px)',
       }}
     >
-      <div style={{ position: 'absolute', top: '150px', right: '50px' }}>
-        <Link to="/dash">
-          <AiOutlineHome className="close" />
-        </Link>
-      </div>
+
       <img
         crossOrigin="anonymous"
         src={photo}

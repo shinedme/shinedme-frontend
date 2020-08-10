@@ -35,15 +35,6 @@ export default () => {
             <h2 style={{ marginLeft: '20px' }}>*Post: {selfies.length}</h2>
           </div>
         </div>
-
-        <div className="back">
-          <Link to="/dash">
-            <AiOutlineHome className="close" />
-          </Link>
-          <Link to="/upload">
-            <FiUploadCloud className="close" />
-          </Link>
-        </div>
       </div>
 
       <div className="profile-list">
