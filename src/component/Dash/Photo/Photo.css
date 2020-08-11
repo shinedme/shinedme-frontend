@@ -1,23 +1,24 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 
-.home-img {
-    /* padding: auto; */
-    border : 1px solid #a7815c;
-    background: linear-gradient(
-        0deg,
-        rgba(209, 245, 242, 0.2),
-        rgba(209, 245, 242, 0.2),
-        rgba(204, 255, 255, 0.2),
-        rgba(209, 245, 242, 0.2)
-    );
+.wrapper {
     font-family: 'Amatic SC', cursive;
     text-align: center;
     font-size: 2em;
-    border-radius: 5px;
-    /* width: 100%; */
     max-height: calc(100vh - 150px);
-    /* max-width: 400px; */
-    /* max-height: 600px; */
+}
+
+.home-img {
+    background: linear-gradient(
+        0deg,
+        rgba(167, 129, 92, 0.8),
+        rgba(134, 104, 74, 0.8),
+        rgba(131, 104, 77, 0.8),
+        rgba(167, 129, 92, 0.8)
+    );
+    padding: 10px;
+    border-radius: 5px;
+    height: 100%;
+    margin: 0 auto;
 }
 
 @media (max-width: 512px) {

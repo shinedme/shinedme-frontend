@@ -9,7 +9,7 @@ import CommentBoard from './CommentBoard/CommentBoard';
 import './Dash.css';
 
 export default () => {
-  const { download, api, previous, next } = useSubstrate();
+  const { download, api, previous, next, signer } = useSubstrate();
   const photos = download.photos;
   const index = download.index;
 
@@ -27,10 +27,14 @@ export default () => {
           let data = u8aToString(com).toString();
           return data;
         });
-        let affiliate_url = photoProfile.affiliate_url;
+        let affiliate_url = photoProfile.affiliate_url.__private_14_raw;
+        affiliate_url = u8aToString(affiliate_url)
+        if (affiliate_url.length > 0) {
+          let url = 'http://localhost:5005?url=' + affiliate_url + '&referer=' + signer.address
+          setAffUrl(url);
+        }
         setLikes(likes);
         setComments(comments);
-        setAffUrl(affiliate_url);
       }
     }
   }, [api, photos, setAffUrl, setLikes, setComments, index]);

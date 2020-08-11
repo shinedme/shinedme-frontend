@@ -14,7 +14,8 @@ import './Upload.css';
 const pixelRatio = 4;
 
 export default () => {
-  const { saveToIpfs, signer, upload, saveUrl, created_name } = useSubstrate();
+  const { saveToIpfs, signer, upload, saveUrl } = useSubstrate();
+
   const hiddenFileInput = useRef(null);
   const [status, setStatus] = useState('');
 
@@ -27,7 +28,7 @@ export default () => {
   };
 
   const validateUrl = (url) => {
-    const expression = /^(http(?:s)?\:\/\/[a-zA-Z0-9]+(?:(?:\.|\-)[a-zA-Z0-9]+)+(?:\:\d+)?(?:\/[\w\-]+)*(?:\/?|\/\w+\.[a-zA-Z]{2,4}(?:\?[\w]+\=[\w\-]+)?)?(?:\&[\w]+\=[\w\-]+)*)$/gi;
+    const expression = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\.)+[\w]{2,}(\/\S*)?$/i;
     const regex = new RegExp(expression);
     if (url.match(regex) || url === '') {
       return true;
