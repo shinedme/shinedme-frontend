@@ -33,7 +33,7 @@ export default ({ clicked }) => {
           background-color: rgba(236, 232, 232, 1);
           box-shadow: inset 2px 2px 3px rgb(153, 153, 153),
                       2px 2px 3px rgb(153, 153, 153);
-          margin: 20px auto;
+          margin: 10px auto;
       }
       
       .p2 {

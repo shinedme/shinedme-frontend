@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSubstrate } from '../../substrate-lib';
 import './Poster.css';
@@ -74,11 +74,29 @@ export default () => {
   const generateRandomNum = ({ min, max }) =>
     Math.floor(Math.random() * (max - min + 1) + min);
 
+  //banner
+  const banner1 = [
+    'Share fantastic outfit',
+    'Shine fabulous creation',
+    'Boost online business'
+  ]
+  const banner2 = [
+    "to earn tokens",
+    "to enhance people's outfit",
+    "with dicentralized affiliation"
+  ]
+
+
+  let [bannerIndex, setBannerIndex] = useState(0)
+  useEffect(() => {
+    const i = setTimeout(() => { setBannerIndex((bannerIndex + 1) % 3) }, 5000)
+    return () => clearInterval(i)
+  }, [bannerIndex])
   return (
     <div className="intro">
-      <div className="quote">
-        <h1>Share Your Next</h1>
-        <p>outfit style and link for other to buy</p>
+      <div className="quote" >
+        <h1 className="fadeInLeft">{banner1[bannerIndex]}</h1>
+        <p className="fadeInLeft">{banner2[bannerIndex]}</p>
       </div>
 
       <div className="squares-wrapper">
@@ -109,7 +127,12 @@ export default () => {
         </ul>
       </div>
       {show}
-      <img src='/shinedme1.png' alt="" style={{ opacity: "0.8" }} />
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', justifyItems: 'center' }}>
+        <img src='/shinedme1.png' alt="" style={{ opacity: "0.6", maxWidth: '20vw', position: 'relative', 'top': '-20vh' }} />
+        <img src='/shinedme2.png' alt="" style={{ opacity: "0.6", maxWidth: '20vw', position: 'relative', 'top': '5vh' }} />
+        <img src='/shinedme3.png' alt="" style={{ opacity: "0.6", maxWidth: '20vw', position: 'relative', 'top': '5vh' }} />
+        <img src='/shinedme4.png' alt="" style={{ opacity: "0.6", maxWidth: '20vw', position: 'relative', 'top': '-20vh' }} />
+      </div>
     </div>
   );
 };
