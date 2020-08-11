@@ -109,6 +109,7 @@ export default () => {
         </ul>
       </div>
       {show}
+      <img src='/shinedme1.png' alt="" style={{ opacity: "0.8" }} />
     </div>
   );
 };

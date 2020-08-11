@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useSubstrate } from '../../substrate-lib';
 import { u8aToString } from '@polkadot/util';
 
-import { AiOutlineHome } from 'react-icons/ai';
-
 import Card from '../Card/Card';
 import Painting from '../Board/Painting';
+
+import { TiArrowBackOutline } from 'react-icons/ti'
 
 export default () => {
   const location = useLocation();
@@ -40,8 +40,12 @@ export default () => {
   };
   const close = () => setShow(false);
 
+  const history = useHistory();
+  const back = () => history.goBack()
+
   return (
     <div className="upload">
+      <button style={{ position: 'absolute', top: '150px', right: '50px' }} onClick={back}><TiArrowBackOutline /> </button>
       {paintings ? (paintings.length > 0 ? (
         paintings.map((p, index) => {
           return <Card photoUrl={p} key={index} open={open} />;

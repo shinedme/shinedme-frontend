@@ -4,19 +4,10 @@
     font-family: 'Amatic SC', cursive;
     text-align: center;
     font-size: 2em;
-    max-height: calc(100vh - 150px);
+    max-height: calc(100vh - 170px);
 }
 
 .home-img {
-    background: linear-gradient(
-        0deg,
-        rgba(167, 129, 92, 0.8),
-        rgba(134, 104, 74, 0.8),
-        rgba(131, 104, 77, 0.8),
-        rgba(167, 129, 92, 0.8)
-    );
-    padding: 10px;
-    border-radius: 5px;
     height: 100%;
     margin: 0 auto;
 }
@@ -34,4 +25,6 @@
     margin:0;
     padding:0;
     color: #663300;
+    border:12px solid rgba(167, 129, 92, 0.8);
+    border-radius: 10px;
 }

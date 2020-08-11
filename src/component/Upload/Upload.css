@@ -4,12 +4,12 @@
     margin: auto;
     margin-top: 100px;
     width: 70%;
-    height: calc(98vh - 100px);
+    height: calc(100vh - 110px);
     background: linear-gradient(
         180deg,
-        rgba(242, 166, 172,0.7),
-        rgba(231, 142, 178, 0.7),
-        rgba(250, 66, 153,0.7)
+        rgba(242, 166, 172,0.6),
+        rgba(241, 178, 184, 0.6),
+        rgba(236, 175, 180, 0.6)
     );
     text-align: center;
     color: #663300;

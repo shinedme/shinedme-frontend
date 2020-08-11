@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useSubstrate } from '../../substrate-lib';
 
 import { Link } from 'react-router-dom';
-import { AiOutlineHome } from 'react-icons/ai';
-import { FiUploadCloud } from 'react-icons/fi';
 import './Profile.css';
 
 import Card from '../Card/Card';

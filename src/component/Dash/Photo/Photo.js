@@ -7,7 +7,7 @@ export default ({ src, affUrl }) => {
   return (
     <div className="wrapper">
       <div className="home-img">
-        {affUrl ? <a href={affUrl} style={{ cursor: 'pointer' }} target="_blank">
+        {affUrl ? <a href={affUrl} style={{ cursor: 'pointer', outline: 'none' }} target="_blank">
           <img
             src={src}
             alt="Oops! NO more photos available, please upload your own and join with shined me community"

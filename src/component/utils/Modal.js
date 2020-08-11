@@ -1,14 +1,14 @@
 import React from 'react';
 
-export default ({ show, Close, children }) => {
+export default ({ show, Close, children, className }) => {
   return (
     <div>
       {show ? <div className="Backdrop" onClick={Close}></div> : null}
       <div
-        className="Modal"
+        className={"Modal " + className}
         style={{
-          transform: show ? 'translateY(0)' : 'translateY(-100vh)',
-          opacity: show ? '1' : '0',
+          transform: show ? 'rotate(0deg)' : 'rotate(180deg)',
+          width: show ? '70%' : '0',
         }}
       >
         {children}
@@ -17,18 +17,11 @@ export default ({ show, Close, children }) => {
                     .Modal {
                         position: fixed;
                         z-index: 20;
-                        background-color: #f8f8f8;
-                        width: 60%;
-                        height: 70%;
-                        max-width: 800px;
-                        max-height: 600px;
-                        border: 10px solid #ccc;
-                        box-shadow: 10px 10px 10px black;
-                        padding: 16px;
-                        top: 12%;
-                        left: 20%;
-                        transition: all 0.3s ease-out;
-                        overflow-y: scroll;
+                        transition: all 0.5s ease-out;
+                        width: 70%;
+                        height: calc(100vh - 110px);
+                        margin-top: 100px;
+                        top:0;
                     }
                     
                     @media (max-width:416px) {
@@ -43,7 +36,7 @@ export default ({ show, Close, children }) => {
                         z-index: 10;
                         left: 0;
                         top: 0;
-                        background-color: rgba(0, 0, 0, 0.7);
+                        margin: 1%;      
                     }
                 `}</style>
     </div>

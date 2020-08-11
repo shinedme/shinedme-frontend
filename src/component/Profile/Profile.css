@@ -1,15 +1,15 @@
 .profile {
   margin: auto;
   margin-top:100px;
-  width: 75%;
-  height: calc(100vh - 120px);
+  width: 70%;
+  height: calc(100vh - 110px);
   background: linear-gradient(
       180deg,
-      rgba(218, 106, 228, 0.3),
-      rgba(243, 132, 230, 0.3),
-      rgba(255, 161, 222, 0.3),
-      rgba(250, 179, 212, 0.3),
-      rgba(252, 167, 208, 0.3)
+      rgba(218, 106, 228, 0.6),
+      rgba(243, 132, 230, 0.6),
+      rgba(255, 161, 222, 0.6),
+      rgba(250, 179, 212, 0.6),
+      rgba(252, 167, 208, 0.6)
 
   );
   border-radius: 10px;
