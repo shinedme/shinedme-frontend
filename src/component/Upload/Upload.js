@@ -1,14 +1,11 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import ReactCrop from 'react-image-crop';
-import { Link } from 'react-router-dom';
 import 'react-image-crop/dist/ReactCrop.css';
 
 import { useSubstrate } from '../../substrate-lib';
 import { TxButton } from '../../substrate-lib/components';
 
 import { RiUploadCloud2Line } from 'react-icons/ri';
-import { AiOutlineHome } from 'react-icons/ai';
-import { BsPeopleCircle } from 'react-icons/bs';
 import './Upload.css';
 
 const pixelRatio = 4;
@@ -137,7 +134,9 @@ export default () => {
           style={{ marginRight: '50px' }}
           onClick={openFile}
         >
-          <div className="arrow-link">⬆️ Select an Image</div>
+          <div className="arrow-link">
+            <RiUploadCloud2Line /> Select an Image
+          </div>
           <input
             id="imageInput"
             type="file"
@@ -147,13 +146,14 @@ export default () => {
           />
         </button>
         <div style={{ marginBottom: '10px' }}>
-          <label>Link to buy : </label>
+          <label style={{ fontSize: '1.5rem' }}>Affiliate Url : </label>
           <input
             type="text"
             name="url"
             id="url"
             onChange={changeUrl}
             placeholder="optional"
+            style={{ fontSize: '1.5rem', width: '20rem' }}
           />
         </div>
         {signer ? (

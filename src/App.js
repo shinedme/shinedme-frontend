@@ -8,9 +8,10 @@ import Dash from './component/Dash/Dash';
 import Upload from './component/Upload/Upload';
 import Profile from './component/Profile/Profile';
 import Header from './component/Header/Header';
-import Login from './component/Landing/Login';
+import Login from './component/Login/Login';
 import Editor from './component/Editor/Editor';
 import Gallery from './component/Gallery/Gallery';
+import Provider from './component/Provider/Provider';
 
 import './App.css';
 
@@ -43,6 +44,7 @@ export default () => {
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/editor" component={Editor} />
           <Route exact path="/gallery" component={Gallery} />
+          <Route exact path="/provider" component={Provider} />
           <Route
             render={() => (
               <h1>
