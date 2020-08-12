@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import Avatar from '../utils/Avatar';
 import './Header.css';
 import { AiOutlineHome } from 'react-icons/ai';
-import { BsPeopleCircle } from 'react-icons/bs';
 
-export default ({ me, src }) => {
+export default ({ me, src, balance }) => {
   return (
     <header className="Toolbar">
       <Avatar src={src} />
+      <div style={{ marginLeft: '10px' }}>
+        {balance && <p>Balance : {balance}</p>}
+      </div>
       <div className="nav">
         <Link to={{ pathname: '/profile/' }}>
           <p>{me}</p>
@@ -21,7 +23,9 @@ export default ({ me, src }) => {
       </div>
       <div className="nav">
         <Link to="/dash">
-          <p><AiOutlineHome /></p>
+          <p>
+            <AiOutlineHome />
+          </p>
         </Link>
       </div>
     </header>

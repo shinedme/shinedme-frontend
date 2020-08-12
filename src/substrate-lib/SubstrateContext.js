@@ -28,6 +28,7 @@ const account = {
   created_name: null,
   created_avatar: null,
   selfies: [],
+  balance: null,
 };
 
 const INIT_STATE = {
@@ -120,6 +121,12 @@ const reducer = (state, action) => {
         account: { ...state.account, selfies: action.selfies },
       };
 
+    case 'BALANCE':
+      return {
+        ...state,
+        account: { ...state.account, balance: action.balance },
+      };
+
     case 'PHOTOS':
       return {
         ...state,
@@ -133,7 +140,7 @@ const reducer = (state, action) => {
       };
 
     case 'MINUS':
-      console.log(state.download)
+      console.log(state.download);
       return {
         ...state,
         download: { ...state.download, index: state.download.index - 1 },

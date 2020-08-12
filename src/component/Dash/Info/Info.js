@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './Info.css';
+import { TiChevronLeft, TiChevronRight } from 'react-icons/ti';
 
 export default ({ previous, next, index, photos }) => {
   const history = useHistory();
@@ -14,24 +15,33 @@ export default ({ previous, next, index, photos }) => {
   return (
     <div className="home-me">
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-        <button className="shined-me" onClick={previous} disabled={index === 0}>
-          PREVIOUS
+        <button className="next" onClick={previous} disabled={index === 0}>
+          <TiChevronLeft /> PREVIOUS
+        </button>
+        <button
+          className="next"
+          onClick={next}
+          disabled={index === photos.length - 1 || photos.length === 0}
+        >
+          NEXT <TiChevronRight />
+        </button>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <button
+          className="shined-me"
+          onClick={openGallery}
+          disabled={photos.length === 0}
+        >
+          🤩 Ideas
         </button>
         <button
           className="shined-me"
-          onClick={next}
-          disabled={index === photos.length - 1}
+          onClick={openEditor}
+          disabled={photos.length === 0}
         >
-          NEXT
+          🥳 Have an idea?
         </button>
       </div>
-
-      <button className="shined-me" onClick={openGallery}>
-        🤩 Ideas
-      </button>
-      <button className="shined-me" onClick={openEditor}>
-        Have an idea?
-      </button>
     </div>
   );
 };

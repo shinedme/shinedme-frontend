@@ -16,7 +16,7 @@ import './App.css';
 
 export default () => {
   const { account } = useSubstrate();
-  const { created_name, created_avatar } = account;
+  const { created_name, created_avatar, balance } = account;
   let routes = (
     <Switch>
       <Route exact path="/" component={Poster} />
@@ -34,7 +34,7 @@ export default () => {
   if (created_name) {
     routes = (
       <>
-        <Header me={created_name} src={created_avatar} />
+        <Header me={created_name} src={created_avatar} balance={balance} />
         <Switch>
           <Route exact path="/" component={Poster} />
           <Route exact path="/login" component={Login} />

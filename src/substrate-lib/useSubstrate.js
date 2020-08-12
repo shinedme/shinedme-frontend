@@ -71,8 +71,10 @@ const useSubstrate = () => {
       let query = await api.query;
       if (query.erc20) {
         let account = await query.erc20.accounts(signer.address);
+        let balance = await query.erc20.balanceOf(signer.address);
+        dispatch({ type: 'BALANCE', balance: balance.toString() });
         let name = u8aToString(account.name).toString();
-        if (name != "") {
+        if (name != '') {
           let avatar = u8aToString(account.avatar).toString();
           let selfies = account.photos.map((photo) => {
             let data = u8aToString(photo).toString();

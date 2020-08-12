@@ -28,9 +28,13 @@ export default () => {
           return data;
         });
         let affiliate_url = photoProfile.affiliate_url.__private_14_raw;
-        affiliate_url = u8aToString(affiliate_url)
+        affiliate_url = u8aToString(affiliate_url);
         if (affiliate_url.length > 0) {
-          let url = 'http://localhost:5005?url=' + affiliate_url + '&referer=' + signer.address
+          let url =
+            'http://localhost:5005?url=' +
+            affiliate_url +
+            '&referer=' +
+            signer.address;
           setAffUrl(url);
         }
         setLikes(likes);
@@ -46,7 +50,6 @@ export default () => {
   return (
     <>
       {photos ? (
-
         <div className="main-style">
           <Photo src={photos[index]} affUrl={affUrl} />
           <div className="rightcolumn">
@@ -59,18 +62,18 @@ export default () => {
             <Evaluation
               photo={photos[index]}
               setLikes={setLikes}
-              setComments={setComments}
-              comments={comments}
               likes={likes}
             />
-            <CommentBoard comments={comments} likes={likes} />
-
+            <CommentBoard
+              comments={comments}
+              photo={photos[index]}
+              setComments={setComments}
+            />
           </div>
         </div>
-
       ) : (
-          <p>Loading photo</p>
-        )}
+        <p>Loading photo</p>
+      )}
     </>
   );
 };

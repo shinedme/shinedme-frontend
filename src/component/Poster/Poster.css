@@ -54,15 +54,15 @@ li{
 }
 
 .fadeInLeft {
-  animation: fadeInLeft 5s linear infinite;
+  animation: fadeInLeft 5s ease-in infinite;
 }
 
 @keyframes fadeInLeft {
   0% {
-     opacity: 0.1;
+     opacity: 1;
   }
   50% {
-    opacity: 1;
+    opacity: 0.5;
   }
   100% {
      opacity: 1;

@@ -68,30 +68,29 @@ export default () => {
     const image = imgRef.current;
     const canvas = previewCanvasRef.current;
     const crop = completedCrop;
-    console.log(image.width)
-    console.log(image.height)
-    console.log(crop.width)
-    console.log(crop.height)
+    console.log(image.width);
+    console.log(image.height);
+    console.log(crop.width);
+    console.log(crop.height);
 
     if (crop.width <= 0) {
-      crop.x = crop.x + crop.width
-      crop.width = -crop.width
+      crop.x = crop.x + crop.width;
+      crop.width = -crop.width;
     }
     if (crop.height <= 0) {
-      crop.y = crop.y + crop.height
-      crop.height = -crop.height
+      crop.y = crop.y + crop.height;
+      crop.height = -crop.height;
     }
     if (crop.width < 30 || crop.height < 40) {
-      crop.width = 30
-      crop.height = 40
+      crop.width = 30;
+      crop.height = 40;
     }
 
-    if (crop.height > 4 / 3 * crop.width) {
-      crop.height = 4 / 3 * crop.width
-    } else if (crop.height < 4 / 3 * crop.width) {
-      crop.width = 3 / 4 * crop.height
+    if (crop.height > (4 / 3) * crop.width) {
+      crop.height = (4 / 3) * crop.width;
+    } else if (crop.height < (4 / 3) * crop.width) {
+      crop.width = (3 / 4) * crop.height;
     }
-
 
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
@@ -132,16 +131,13 @@ export default () => {
         height: 'calc(100vh - 110px)',
       }}
     >
-
       <div>
         <button
           className="shined-me"
           style={{ marginRight: '50px' }}
           onClick={openFile}
         >
-          <div className="arrow-link">
-            ⬆️ Select an Image
-          </div>
+          <div className="arrow-link">⬆️ Select an Image</div>
           <input
             id="imageInput"
             type="file"
@@ -165,7 +161,6 @@ export default () => {
             accountPair={signer}
             label={'😇 Post'}
             labelDone={'😇 Posted'}
-
             setStatus={setStatus}
             type="SIGNED-TX"
             disabled={!upload.photo || !validateUrl(upload.affiliate_url)}
@@ -175,7 +170,6 @@ export default () => {
               inputParams: [upload.photo, upload.affiliate_url],
               paramFields: [true, { optional: true }],
             }}
-            style={{ fontSize: '1.5rem' }}
           />
         ) : null}
         <div style={{ overflowWrap: 'break-word' }}>{status}</div>

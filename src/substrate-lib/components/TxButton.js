@@ -6,7 +6,7 @@ import utils from '../utils';
 function TxButton({
   accountPair = null,
   label,
-  setStatus,
+  setStatus = null,
   color = 'blue',
   style = null,
   type = 'QUERY',
@@ -50,19 +50,19 @@ function TxButton({
   const txResHandler = ({ status }) => {
     status.isFinalized
       ? setStatus(
-        `😉 Finalized. Block hash: ${status.asFinalized
-          .toString()
-          .slice(0, 8)}`
-      )
+          `😉 Finalized. Block hash: ${status.asFinalized
+            .toString()
+            .slice(0, 8)}`
+        )
       : setStatus(`Current transaction status: ${status.type}`);
-    console.log(status.type)
-    if (status.type == 'InBlock') setLoading('done')
-  }
+    console.log(status.type);
+    if (status.type == 'InBlock') setLoading('done');
+  };
 
   const txErrHandler = (err) => {
     setStatus(`😞 Transaction Failed: ${err.toString()}`);
-    setLoading('done')
-  }
+    setLoading('done');
+  };
 
   const signedTx = async () => {
     const fromAcct = await getFromAcct();
@@ -231,17 +231,22 @@ function TxButton({
   };
 
   return (
-    <div>
-      {loading === true ? <img src="grid.svg" alt="" width="40" /> :
+    <div style={style}>
+      {loading === true ? (
+        <img src="grid.svg" alt="" width="40" />
+      ) : (
         <button
           color={color}
-          style={style}
           type="submit"
           onClick={transaction}
-          disabled={disabled || !palletRpc || !callable || !allParamsFilled() || loading}
-          className="shined-me">
-          {loading === 'done' ? (labelDone || label) : label}
-        </button>}
+          disabled={
+            disabled || !palletRpc || !callable || !allParamsFilled() || loading
+          }
+          className="shined-me"
+        >
+          {loading === 'done' ? labelDone || label : label}
+        </button>
+      )}
     </div>
   );
 }

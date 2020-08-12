@@ -14,7 +14,7 @@ export default () => {
     account,
   } = useSubstrate();
 
-  const { created_name } = account
+  const { created_name } = account;
 
   const history = useHistory();
   const clicked = () => history.push('/login');
@@ -22,7 +22,9 @@ export default () => {
 
   const loader = (text) => (
     <div>
-      <p><img src="grid.svg" alt="" width="40" /></p>
+      <p>
+        <img src="grid.svg" alt="" width="40" />
+      </p>
       <p>{text}</p>
     </div>
   );
@@ -44,8 +46,8 @@ export default () => {
       {created_name ? (
         <p className="text">Start your journey to shining yourself</p>
       ) : (
-          <p className="text">Login here</p>
-        )}
+        <p className="text">Login here</p>
+      )}
     </>
   );
 
@@ -78,23 +80,24 @@ export default () => {
   const banner1 = [
     'Share fantastic outfit',
     'Shine fabulous creation',
-    'Boost online business'
-  ]
+    'Boost online business',
+  ];
   const banner2 = [
-    "to earn tokens",
+    'to earn tokens',
     "to enhance people's outfit",
-    "with dicentralized affiliation"
-  ]
+    'with dicentralized affiliation',
+  ];
 
-
-  let [bannerIndex, setBannerIndex] = useState(0)
+  let [bannerIndex, setBannerIndex] = useState(0);
   useEffect(() => {
-    const i = setTimeout(() => { setBannerIndex((bannerIndex + 1) % 3) }, 5000)
-    return () => clearInterval(i)
-  }, [bannerIndex])
+    const i = setTimeout(() => {
+      setBannerIndex((bannerIndex + 1) % 3);
+    }, 5000);
+    return () => clearInterval(i);
+  }, [bannerIndex]);
   return (
     <div className="intro">
-      <div className="quote" >
+      <div className="quote">
         <h1 className="fadeInLeft">{banner1[bannerIndex]}</h1>
         <p className="fadeInLeft">{banner2[bannerIndex]}</p>
       </div>
@@ -115,7 +118,7 @@ export default () => {
                   height: randomDimensions,
                   animationDelay: `${
                     i % 2 ? generateRandomNum({ min: 0, max: 20 }) : 0
-                    }s`,
+                  }s`,
                   animationDuration: `${generateRandomNum({
                     min: 10,
                     max: 50,
@@ -127,11 +130,53 @@ export default () => {
         </ul>
       </div>
       {show}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', justifyItems: 'center' }}>
-        <img src='/shinedme1.png' alt="" style={{ opacity: "0.6", maxWidth: '20vw', position: 'relative', 'top': '-20vh' }} />
-        <img src='/shinedme2.png' alt="" style={{ opacity: "0.6", maxWidth: '20vw', position: 'relative', 'top': '5vh' }} />
-        <img src='/shinedme3.png' alt="" style={{ opacity: "0.6", maxWidth: '20vw', position: 'relative', 'top': '5vh' }} />
-        <img src='/shinedme4.png' alt="" style={{ opacity: "0.6", maxWidth: '20vw', position: 'relative', 'top': '-20vh' }} />
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr 1fr',
+          justifyItems: 'center',
+        }}
+      >
+        <img
+          src="/shinedme1.png"
+          alt=""
+          style={{
+            opacity: '0.6',
+            maxWidth: '20vw',
+            position: 'relative',
+            top: '-20vh',
+          }}
+        />
+        <img
+          src="/shinedme2.png"
+          alt=""
+          style={{
+            opacity: '0.6',
+            maxWidth: '20vw',
+            position: 'relative',
+            top: '5vh',
+          }}
+        />
+        <img
+          src="/shinedme3.png"
+          alt=""
+          style={{
+            opacity: '0.6',
+            maxWidth: '20vw',
+            position: 'relative',
+            top: '5vh',
+          }}
+        />
+        <img
+          src="/shinedme4.png"
+          alt=""
+          style={{
+            opacity: '0.6',
+            maxWidth: '20vw',
+            position: 'relative',
+            top: '-20vh',
+          }}
+        />
       </div>
     </div>
   );

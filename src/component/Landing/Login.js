@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import { useSubstrate } from '../../substrate-lib';
 import { TxButton } from '../../substrate-lib/components';
@@ -7,7 +7,6 @@ import { TxButton } from '../../substrate-lib/components';
 import Avatar from '../utils/Avatar';
 
 import './landing.css';
-import { AiOutlineHome } from 'react-icons/ai';
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -20,9 +19,9 @@ export default () => {
     profile,
     signer,
     api,
-    account
+    account,
   } = useSubstrate();
-  const { created_name } = account
+  const { created_name } = account;
   const [status, setStatus] = useState('');
 
   const changeNickname = (event) => {
@@ -37,13 +36,18 @@ export default () => {
 
   const getInitialMoney = async () => {
     if (signer) {
-      let req = await fetch(`http://${process.env.SHINEDME_ACCOUNT_HELPER_HOST || 'localhost'}:4000`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({ addr: signer.address }),
-      });
+      let req = await fetch(
+        `http://${
+          process.env.SHINEDME_ACCOUNT_HELPER_HOST || 'localhost'
+        }:4000`,
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({ addr: signer.address }),
+        }
+      );
       let { txHash } = await req.json();
       console.log(txHash);
 
@@ -70,13 +74,13 @@ export default () => {
           {profile.avatar ? (
             <Avatar src={profile.avatar} />
           ) : (
-              <input
-                type="file"
-                name="input-file"
-                id="input-file"
-                onChange={captureFile}
-              />
-            )}
+            <input
+              type="file"
+              name="input-file"
+              id="input-file"
+              onChange={captureFile}
+            />
+          )}
           <br />
           <p>Please input a nickname:</p>
           <input
@@ -84,9 +88,10 @@ export default () => {
             name="username"
             id="username"
             onChange={changeNickname}
+            style={{ fontSize: '2rem' }}
           />
           <br />
-          <div className="text-log">
+          <div style={{ marginTop: '20px' }}>
             {signer ? (
               <TxButton
                 accountPair={signer}
@@ -103,8 +108,8 @@ export default () => {
                 preop={getInitialMoney}
               />
             ) : (
-                ''
-              )}
+              ''
+            )}
             <div style={{ overflowWrap: 'break-word' }}>{status}</div>
           </div>
         </form>

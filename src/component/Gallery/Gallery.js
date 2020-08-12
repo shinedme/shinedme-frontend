@@ -6,7 +6,7 @@ import { u8aToString } from '@polkadot/util';
 import Card from '../Card/Card';
 import Painting from '../Board/Painting';
 
-import { TiArrowBackOutline } from 'react-icons/ti'
+import { TiArrowBackOutline } from 'react-icons/ti';
 
 export default () => {
   const location = useLocation();
@@ -41,21 +41,36 @@ export default () => {
   const close = () => setShow(false);
 
   const history = useHistory();
-  const back = () => history.goBack()
+  const back = () => history.goBack();
 
   return (
     <div className="upload">
-      <button style={{ position: 'absolute', top: '150px', right: '50px' }} onClick={back}><TiArrowBackOutline /> </button>
-      {paintings ? (paintings.length > 0 ? (
-        paintings.map((p, index) => {
-          return <Card photoUrl={p} key={index} open={open} />;
-        })
-      ) : (
+      <p
+        style={{
+          position: 'absolute',
+          top: '100px',
+          right: '50px',
+          padding: '5px',
+          cursor: 'pointer',
+        }}
+        onClick={back}
+      >
+        <TiArrowBackOutline style={{ fontSize: '2rem' }} />{' '}
+      </p>
+      {paintings ? (
+        paintings.length > 0 ? (
+          paintings.map((p, index) => {
+            return <Card photoUrl={p} key={index} open={open} />;
+          })
+        ) : (
           <p>
             No paintings found. You can go back to dashboard and click editor
             button to make first one.
           </p>
-        )) : <img src="grid.svg" alt="" width="40" />}
+        )
+      ) : (
+        <img src="grid.svg" alt="" width="40" />
+      )}
       <Painting show={show} Close={close} photoUrl={url} />
     </div>
   );

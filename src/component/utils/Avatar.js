@@ -8,6 +8,8 @@ export default ({ src }) => {
       style={{
         width: '70px',
         height: '70px',
+        borderRadius: '10px',
+        border: '1px dashed #FFFF00',
       }}
     />
   );

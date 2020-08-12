@@ -33,7 +33,7 @@ export default () => {
     setCanvas(
       document.querySelector('#cs'),
       document.querySelector('#photo'),
-      () => { }
+      () => {}
     );
     var p = document;
     p = p.querySelector('#cs');
@@ -140,7 +140,7 @@ export default () => {
     setCanvas(
       document.querySelector('#cs'),
       document.querySelector('#photo'),
-      () => { }
+      () => {}
     );
   }, []);
 
@@ -152,7 +152,6 @@ export default () => {
         height: 'calc(100vh - 110px)',
       }}
     >
-
       <img
         crossOrigin="anonymous"
         src={photo}
@@ -234,7 +233,6 @@ export default () => {
                   inputParams: [photo, upload.photo],
                   paramFields: [true, true],
                 }}
-                style={{ fontSize: '1.5rem' }}
               />
             ) : null}
           </label>
@@ -341,5 +339,5 @@ function createFileFromUrl(path, url, callback) {
 createFileFromUrl(
   'haarcascade_frontalface_default.xml',
   'haarcascade_frontalface_default.xml',
-  () => { }
+  () => {}
 );

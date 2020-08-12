@@ -6,28 +6,18 @@
 
 }
 
-@media (max-width: 512px) {
-  .home-eva {
-      height: 10vh;
-  }
-}
-
 .emoji {
-    padding-left: 10px;
-    margin: 0;
     font-weight: bold;
-    font-size: 2em;
+    font-size: 1.5rem;
     color: #663300;
-    display: block;
 }
 
 .emoji > p {
     margin:0;
-    padding: auto;
-    display: inline;
+    padding: 0 10px;
     font-family: 'Amatic SC', cursive;
-    cursor: pointer;
     border : 1px dashed #fdfb8b;
+    border-radius: 10px;
 }
 
 .emoji > p:hover {
@@ -36,19 +26,9 @@
     border-radius: 10px;
 }
 
-.first {
-  grid-area: f;
-}
-
-.second {
-  grid-area: s;
-  margin-top: 5px;
-}
-
 .home-comment {
   margin-top:10px;
   padding:0;
-  grid-area: c;
 }
 
 .home-comment > textarea {
@@ -56,7 +36,27 @@
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 3px 3px 2px 0 rgba(204, 204, 204,0.9);
   font-family: 'Open Sans Condensed', sans-serif;
-  font-size: 1em;
+  font-size: 1rem;
   border-color: #663300;
   border-radius: 5px;
+  width: 100%;
+}
+
+.comments {
+  border : 1px dashed #fdfb8b;
+  border-radius: 10px;
+  height: 260px;
+  overflow-y: scroll;
+}
+
+.comment {
+  font-size: 1rem;
+  color: #663300;
+  width: 100%;
+}
+
+.comment:hover {
+  border : 1px dashed #fdfb8b;
+  background-color: rgba(255, 255, 204,0.7);
+  border-radius: 10px;
 }
