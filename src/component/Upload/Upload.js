@@ -6,12 +6,16 @@ import { useSubstrate } from '../../substrate-lib';
 import { TxButton } from '../../substrate-lib/components';
 
 import { RiUploadCloud2Line } from 'react-icons/ri';
+import { TiTick } from 'react-icons/ti';
+import { RiCloseLine } from 'react-icons/ri';
 import './Upload.css';
 
 const pixelRatio = 4;
 
 export default () => {
   const { saveToIpfs, signer, upload, saveUrl } = useSubstrate();
+  // const { affiliations } = download;
+  // console.log('affiliations', affiliations);
 
   const hiddenFileInput = useRef(null);
   const [status, setStatus] = useState('');
@@ -20,19 +24,32 @@ export default () => {
     hiddenFileInput.current.click();
   };
 
-  const changeUrl = (event) => {
-    saveUrl(event.target.value);
-  };
+  // const [appendTag, setAppend] = useState(null);
+  // const selectAppend = (event) => setAppend(event.target.value);
+  // const changeUrl = (event) => {
+  //   let url = event.target.value;
+  //   url =
+  //     'http://localhost:5005?url=' +
+  //     escape(url) +
+  //     '&to=' +
+  //     signer.address +
+  //     '&urlAppend=' +
+  //     escape(appendTag);
+  //   saveUrl(event.target.value);
+  // };
 
-  const validateUrl = (url) => {
-    const expression = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\.)+[\w]{2,}(\/\S*)?$/i;
-    const regex = new RegExp(expression);
-    if (url.match(regex) || url === '') {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  // const [val, setVal] = useState('');
+  // const validateUrl = (url) => {
+  //   const expression = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\.)+[\w]{2,}(\/\S*)?$/i;
+  //   const regex = new RegExp(expression);
+  //   if (url.match(regex) || url === '') {
+  //     setVal('correct');
+  //     return true;
+  //   } else {
+  //     setVal('wrong');
+  //     return false;
+  //   }
+  // };
 
   //crop part
   const [upImg, setUpImg] = useState();
@@ -61,7 +78,6 @@ export default () => {
     if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
       return;
     }
-
     const image = imgRef.current;
     const canvas = previewCanvasRef.current;
     const crop = completedCrop;
@@ -118,8 +134,6 @@ export default () => {
     });
   }, [completedCrop, saveToIpfs]);
 
-  console.log(upload);
-
   return (
     <div
       style={{
@@ -145,17 +159,32 @@ export default () => {
             style={{ display: 'none' }}
           />
         </button>
-        <div style={{ marginBottom: '10px' }}>
+        {/* <div style={{ marginBottom: '10px' }}>
           <label style={{ fontSize: '1.5rem' }}>Affiliate Url : </label>
           <input
             type="text"
             name="url"
             id="url"
             onChange={changeUrl}
-            placeholder="optional"
-            style={{ fontSize: '1.5rem', width: '20rem' }}
+            placeholder="(optional)"
+            style={{ fontSize: '1.2rem', width: '20rem' }}
           />
         </div>
+        {val === 'correct' && <TiTick />}
+        {val === 'wrong' && <RiCloseLine />} */}
+
+        {/* <div>
+          <label style={{ fontSize: '1.5rem' }}>Affiliation : </label>
+          <select style={{ fontSize: '1.2rem' }} onChange={selectAppend}>
+            <option value=""></option>
+            {affiliations.map((aff) => (
+              <option key={aff.tag} value={aff.tag}>
+                {aff.tag.slice(5)}
+              </option>
+            ))}
+          </select>
+        </div> */}
+
         {signer ? (
           <TxButton
             accountPair={signer}
@@ -163,7 +192,7 @@ export default () => {
             labelDone={'😇 Posted'}
             setStatus={setStatus}
             type="SIGNED-TX"
-            disabled={!upload.photo || !validateUrl(upload.affiliate_url)}
+            disabled={!upload.photo}
             attrs={{
               palletRpc: 'erc20',
               callable: 'uploadPhoto',

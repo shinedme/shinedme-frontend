@@ -22,6 +22,14 @@ const upload = {
 const download = {
   photos: [],
   index: 0,
+  affiliations: [],
+};
+
+const provider = {
+  url: null,
+  tag: null,
+  total: '50',
+  single: '1',
 };
 
 const account = {
@@ -48,6 +56,7 @@ const INIT_STATE = {
   account: account,
   upload: upload,
   download: download,
+  provider: provider,
 };
 
 const reducer = (state, action) => {
@@ -89,6 +98,11 @@ const reducer = (state, action) => {
       return { ...state, profile: { ...state.profile, avatar: action.avatar } };
 
     case 'PHOTO':
+      console.log('hehe');
+      console.log({
+        ...state,
+        upload: { ...state.upload, photo: action.photo },
+      });
       return { ...state, upload: { ...state.upload, photo: action.photo } };
 
     case 'CLEAR_PHOTO':
@@ -128,9 +142,17 @@ const reducer = (state, action) => {
       };
 
     case 'PHOTOS':
+      console.log('photos here');
       return {
         ...state,
         download: { ...state.download, photos: action.photos },
+      };
+
+    case 'AFFILIATIONS':
+      console.log('affiliations here');
+      return {
+        ...state,
+        download: { ...state.download, affiliations: action.affiliations },
       };
 
     case 'ADD':
@@ -140,11 +162,29 @@ const reducer = (state, action) => {
       };
 
     case 'MINUS':
-      console.log(state.download);
       return {
         ...state,
         download: { ...state.download, index: state.download.index - 1 },
       };
+
+    case 'PROVIDER':
+      return {
+        ...state,
+        provider: { ...state.provider, url: action.url },
+      };
+
+    case 'TAG':
+      return { ...state, provider: { ...state.provider, tag: action.tag } };
+
+    case 'TOTAL':
+      return { ...state, provider: { ...state.provider, total: action.total } };
+
+    case 'SINGLE':
+      return {
+        ...state,
+        provider: { ...state.provider, single: action.single },
+      };
+
     default:
       throw new Error(`Unknown type: ${action.type}`);
   }

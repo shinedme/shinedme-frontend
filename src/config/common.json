@@ -13,10 +13,16 @@
     },
     "PhotoInfo": {
       "owner": "AccountId",
-    "affiliate_url": "Option<Vec<u8>>",
-    "likes": "Vec<AccountId>",
-    "variants": "Vec<Vec<u8>>",
-    "comments": "Vec<Vec<u8>>"
+      "affiliate_url": "Option<Vec<u8>>",
+      "likes": "Vec<AccountId>",
+      "variants": "Vec<Vec<u8>>",
+      "comments": "Vec<Vec<u8>>"
+    },
+    "AffiliateProvider": {
+      "single_click_credit": "TokenBalance",
+      "total_credit":"TokenBalance",
+      "payer": "AccountId",
+      "url_append": "Vec<u8>"
     }
   }
 }

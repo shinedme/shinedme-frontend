@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Avatar from '../utils/Avatar';
 import './Header.css';
-import { AiOutlineHome } from 'react-icons/ai';
 
 export default ({ me, src, balance }) => {
   return (
@@ -23,9 +22,7 @@ export default ({ me, src, balance }) => {
       </div>
       <div className="nav">
         <Link to="/dash">
-          <p>
-            <AiOutlineHome />
-          </p>
+          <p>Home</p>
         </Link>
       </div>
     </header>

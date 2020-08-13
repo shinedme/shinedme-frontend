@@ -10,17 +10,18 @@ export default ({ src, affUrl }) => {
             href={affUrl}
             style={{ cursor: 'pointer', outline: 'none' }}
             target="_blank"
+            rel="noopener noreferrer"
           >
             <img
               src={src}
-              alt="Please upload your own and join with shined me community"
+              alt="Please upload your own and join with shined me community later"
               className="img-set"
             />
           </a>
         ) : (
           <img
             src={src}
-            alt="Please upload your own and join with shined me community"
+            alt="Please upload your own and join with shined me community later"
             className="img-set"
           />
         )}

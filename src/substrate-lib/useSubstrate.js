@@ -58,6 +58,23 @@ const useSubstrate = () => {
           return data.slice(index);
         });
         dispatch({ type: 'PHOTOS', photos });
+        let affiliations = await query.erc20.affiliations.keys();
+        affiliations = await Promise.all(
+          affiliations.map(async (aff) => {
+            let data = u8aToString(aff).toString();
+            let index = data.indexOf('https');
+            let provider = data.slice(index);
+            let value = await query.erc20.affiliations(provider);
+            value = value[0];
+            return {
+              provider,
+              single: value.single_click_credit.toString(),
+              total: value.total_credit.toString(),
+              tag: u8aToString(value.url_append).toString(),
+            };
+          })
+        );
+        dispatch({ type: 'AFFILIATIONS', affiliations });
       }
     }
   }, [api, dispatch]);
@@ -74,7 +91,7 @@ const useSubstrate = () => {
         let balance = await query.erc20.balanceOf(signer.address);
         dispatch({ type: 'BALANCE', balance: balance.toString() });
         let name = u8aToString(account.name).toString();
-        if (name != '') {
+        if (name !== '') {
           let avatar = u8aToString(account.avatar).toString();
           let selfies = account.photos.map((photo) => {
             let data = u8aToString(photo).toString();
@@ -98,6 +115,7 @@ const useSubstrate = () => {
   const saveToIpfs = useCallback(
     async ([file], type) => {
       let src;
+      console.log('saveipfs');
       await state.ipfs
         .add(file, { progress: (prog) => console.log(`received: ${prog}`) })
         .then((added) => {
@@ -106,6 +124,7 @@ const useSubstrate = () => {
         });
       let ok;
       while (!ok) {
+        console.log('loop');
         let response = await fetch(src);
         ok = response.ok;
         if (ok) {
@@ -113,7 +132,10 @@ const useSubstrate = () => {
             dispatch({ type: 'AVATAR', avatar: src });
           }
           if (type === 'PHOTO') {
+            console.log('dispatch');
+
             dispatch({ type: 'PHOTO', photo: src });
+            console.log('dispatch');
           }
         }
       }
@@ -150,12 +172,28 @@ const useSubstrate = () => {
       dispatch({ type: 'MINUS' });
     }
   };
+
   const next = () => {
     if (state.download.index !== state.download.photos.length - 1) {
       dispatch({ type: 'ADD' });
     }
   };
 
+  const saveProvider = (url) => {
+    dispatch({ type: 'PROVIDER', url });
+  };
+
+  const saveTag = (tag) => {
+    dispatch({ type: 'TAG', tag: '?tag=' + tag });
+  };
+
+  const saveSingle = (single) => {
+    dispatch({ type: 'SINGLE', single });
+  };
+
+  const saveTotal = (total) => {
+    dispatch({ type: 'TOTAL', total });
+  };
   return {
     ...state,
     saveToIpfs,
@@ -167,6 +205,10 @@ const useSubstrate = () => {
     setAvatar,
     previous,
     next,
+    saveProvider,
+    saveTag,
+    saveSingle,
+    saveTotal,
   };
 };
 

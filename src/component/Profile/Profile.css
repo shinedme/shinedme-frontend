@@ -19,7 +19,7 @@
   height: 160px;
   width: 100%;
   display: grid;
-  grid-template-columns: 30% 40% 30%;
+  grid-template-columns: 40% 60%;
 }
 
 
@@ -29,6 +29,7 @@ text-align: right;
 
 .profile-info{
   padding-top: 20px;
+  text-align: left;
 }
 
 .profile-list {

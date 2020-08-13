@@ -28,34 +28,14 @@
     display: grid;
 }
 
-.log-button {
-    color: white;
-    width: 40%;
-    margin-top: -5px;
-    font-size: 1.2em;
-    padding: 10px 50px;
-    background: linear-gradient(
-        0deg,
-        rgba(209, 245, 242, 0.5),
-        rgba(209, 245, 242, 0.3),
-        rgba(204, 255, 255, 0),
-        rgba(209, 245, 242, 0.5)
-    );
-    border : 0.5px dotted #663300;
-}
-
-.log-button:hover {
-    background-color: rgb(236, 179, 255);
-}
-
-.log-button:active {
-    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
-                inset 2px 2px 3px rgba(0, 0, 0, .6);
-}
-
 .close {
     justify-self: end;
     font-size: 1.8em;
     color: white;
     margin: 0;
+}
+
+.text-log {
+    margin: 10px 25%;
+    text-align: left;
 }

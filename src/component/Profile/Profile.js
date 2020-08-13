@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSubstrate } from '../../substrate-lib';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Profile.css';
 
 import Card from '../Card/Card';
@@ -20,6 +20,8 @@ export default () => {
   };
   const close = () => setShow(false);
 
+  const history = useHistory();
+  const goPost = () => history.push('/provider');
   return (
     <div className="profile">
       <div className="profile-up">
@@ -32,6 +34,9 @@ export default () => {
             <h2>*Name: {created_name}</h2>
             <h2 style={{ marginLeft: '20px' }}>*Post: {selfies.length}</h2>
           </div>
+          <button className="submit" onClick={goPost}>
+            Affliation Provider Creation
+          </button>
         </div>
       </div>
 
