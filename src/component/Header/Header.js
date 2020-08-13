@@ -5,8 +5,8 @@ import './Header.css';
 
 export default ({ me, src, balance }) => {
   return (
-    <header style={{ justifyContent: 'space-between', display: 'flex' }}>
-      <div>
+    <header class="Header">
+      <div class="Logo">
         <img src="shinedme.png" style={{ width: '80px', height: '80px' }} />
       </div>
       <div className="Toolbar">
