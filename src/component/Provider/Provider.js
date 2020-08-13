@@ -13,7 +13,7 @@ export default () => {
         <input placeholder="" />
       </div>
       <div className="text-log">
-        <label className="label">TOTAL TOKEN FOR CLICK:</label>
+        <label className="label">TOTAL TOKENS FOR CLICK:</label>
         <input placeholder="1000000000" type="number" />
       </div>
       <div className="text-log">
