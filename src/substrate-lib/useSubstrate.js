@@ -115,7 +115,6 @@ const useSubstrate = () => {
   const saveToIpfs = useCallback(
     async ([file], type) => {
       let src;
-      console.log('saveipfs');
       await state.ipfs
         .add(file, { progress: (prog) => console.log(`received: ${prog}`) })
         .then((added) => {
@@ -124,7 +123,6 @@ const useSubstrate = () => {
         });
       let ok;
       while (!ok) {
-        console.log('loop');
         let response = await fetch(src);
         ok = response.ok;
         if (ok) {
@@ -132,10 +130,7 @@ const useSubstrate = () => {
             dispatch({ type: 'AVATAR', avatar: src });
           }
           if (type === 'PHOTO') {
-            console.log('dispatch');
-
             dispatch({ type: 'PHOTO', photo: src });
-            console.log('dispatch');
           }
         }
       }

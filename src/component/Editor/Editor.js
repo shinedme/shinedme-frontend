@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useSubstrate } from '../../substrate-lib';
 import { TxButton } from '../../substrate-lib/components';
 
-import { AiOutlineHome } from 'react-icons/ai';
 import './Editor.css';
 /* global cv */
 
@@ -48,7 +47,6 @@ export default () => {
   }
 
   function setColorRange(e) {
-    console.log(e.target.value);
     setRange(e.target.value);
   }
 
@@ -79,7 +77,6 @@ export default () => {
     let mask1 = new cv.Mat();
     let mask2 = new cv.Mat();
     if (low_color[0] > high_color[0]) {
-      console.log('aaa');
       cv.inRange(hsv, zero, high, mask1);
       let mask2 = new cv.Mat();
       cv.inRange(hsv, low, one, mask2);
@@ -90,7 +87,6 @@ export default () => {
 
     let classifier = new cv.CascadeClassifier();
     classifier.load('haarcascade_frontalface_default.xml');
-    console.log('aa');
     let gray = new cv.Mat();
     let faces = new cv.RectVector();
     cv.cvtColor(src, gray, cv.COLOR_BGR2GRAY, 0);
@@ -130,7 +126,6 @@ export default () => {
     cv.imshow('cs2', r);
 
     document.querySelector('#cs2').toBlob(function (blob) {
-      console.log(blob);
       let file = new File([blob], 'modified.png');
       saveToIpfs([file], 'PHOTO');
     });

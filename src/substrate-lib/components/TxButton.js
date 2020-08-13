@@ -55,8 +55,7 @@ function TxButton({
             .slice(0, 8)}`
         )
       : setStatus(`Current transaction status: ${status.type}`);
-    console.log(status.type);
-    if (status.type == 'InBlock') setLoading('done');
+    if (status.type === 'InBlock') setLoading('done');
   };
 
   const txErrHandler = (err) => {

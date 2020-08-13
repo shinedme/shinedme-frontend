@@ -4,7 +4,12 @@
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0,0,0,0.3);
+  background: linear-gradient(
+    -90deg,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.2),
+    rgba(97, 102, 169, 0.2)
+    );
   display: flex;
   justify-content: flex-end;
   align-items: center;

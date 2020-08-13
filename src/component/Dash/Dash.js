@@ -9,7 +9,7 @@ import CommentBoard from './CommentBoard/CommentBoard';
 import './Dash.css';
 
 export default () => {
-  const { download, api, previous, next, signer } = useSubstrate();
+  const { download, api, previous, next } = useSubstrate();
   const photos = download.photos;
   const index = download.index;
 
@@ -30,12 +30,7 @@ export default () => {
         let affiliate_url = photoProfile.affiliate_url.__private_14_raw;
         affiliate_url = u8aToString(affiliate_url);
         if (affiliate_url.length > 0) {
-          let url =
-            'http://localhost:5005?url=' +
-            affiliate_url +
-            '&referer=' +
-            signer.address;
-          setAffUrl(url);
+          setAffUrl(affiliate_url);
         }
         setLikes(likes);
         setComments(comments);

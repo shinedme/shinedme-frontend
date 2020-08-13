@@ -13,9 +13,8 @@ import './Upload.css';
 const pixelRatio = 4;
 
 export default () => {
-  const { saveToIpfs, signer, upload, saveUrl } = useSubstrate();
-  // const { affiliations } = download;
-  // console.log('affiliations', affiliations);
+  const { saveToIpfs, signer, upload, saveUrl, download } = useSubstrate();
+  const { affiliations } = download;
 
   const hiddenFileInput = useRef(null);
   const [status, setStatus] = useState('');
@@ -24,32 +23,24 @@ export default () => {
     hiddenFileInput.current.click();
   };
 
-  // const [appendTag, setAppend] = useState(null);
-  // const selectAppend = (event) => setAppend(event.target.value);
-  // const changeUrl = (event) => {
-  //   let url = event.target.value;
-  //   url =
-  //     'http://localhost:5005?url=' +
-  //     escape(url) +
-  //     '&to=' +
-  //     signer.address +
-  //     '&urlAppend=' +
-  //     escape(appendTag);
-  //   saveUrl(event.target.value);
-  // };
+  const [appendTag, setAppend] = useState(null);
+  const selectAppend = (event) => {
+    setAppend(event.target.value);
+  };
 
-  // const [val, setVal] = useState('');
-  // const validateUrl = (url) => {
-  //   const expression = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\.)+[\w]{2,}(\/\S*)?$/i;
-  //   const regex = new RegExp(expression);
-  //   if (url.match(regex) || url === '') {
-  //     setVal('correct');
-  //     return true;
-  //   } else {
-  //     setVal('wrong');
-  //     return false;
-  //   }
-  // };
+  const changeUrl = (event) => {
+    saveUrl(event.target.value);
+  };
+
+  const validateUrl = (url) => {
+    const expression = /^(https?:\/\/)?(www.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9]).)+[\w]{2,}(\/\S)?$/i;
+    const regex = new RegExp(expression);
+    if (url.match(regex) || url === '') {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   //crop part
   const [upImg, setUpImg] = useState();
@@ -134,6 +125,14 @@ export default () => {
     });
   }, [completedCrop, saveToIpfs]);
 
+  let url =
+    'http://localhost:5005?url=' +
+    encodeURIComponent(upload.affiliate_url) +
+    '&to=' +
+    signer.address +
+    '&urlAppend=' +
+    encodeURIComponent(appendTag);
+  console.log(upload.photo);
   return (
     <div
       style={{
@@ -159,7 +158,7 @@ export default () => {
             style={{ display: 'none' }}
           />
         </button>
-        {/* <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '10px' }}>
           <label style={{ fontSize: '1.5rem' }}>Affiliate Url : </label>
           <input
             type="text"
@@ -169,11 +168,10 @@ export default () => {
             placeholder="(optional)"
             style={{ fontSize: '1.2rem', width: '20rem' }}
           />
+          {validateUrl(upload.affiliate_url) && <TiTick />}
+          {validateUrl(upload.affiliate_url) === false && <RiCloseLine />}
         </div>
-        {val === 'correct' && <TiTick />}
-        {val === 'wrong' && <RiCloseLine />} */}
-
-        {/* <div>
+        <div>
           <label style={{ fontSize: '1.5rem' }}>Affiliation : </label>
           <select style={{ fontSize: '1.2rem' }} onChange={selectAppend}>
             <option value=""></option>
@@ -183,7 +181,7 @@ export default () => {
               </option>
             ))}
           </select>
-        </div> */}
+        </div>
 
         {signer ? (
           <TxButton
@@ -192,11 +190,11 @@ export default () => {
             labelDone={'😇 Posted'}
             setStatus={setStatus}
             type="SIGNED-TX"
-            disabled={!upload.photo}
+            disabled={!upload.photo || !validateUrl(upload.affiliate_url)}
             attrs={{
               palletRpc: 'erc20',
               callable: 'uploadPhoto',
-              inputParams: [upload.photo, upload.affiliate_url],
+              inputParams: [upload.photo, url],
               paramFields: [true, { optional: true }],
             }}
           />

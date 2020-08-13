@@ -98,11 +98,6 @@ const reducer = (state, action) => {
       return { ...state, profile: { ...state.profile, avatar: action.avatar } };
 
     case 'PHOTO':
-      console.log('hehe');
-      console.log({
-        ...state,
-        upload: { ...state.upload, photo: action.photo },
-      });
       return { ...state, upload: { ...state.upload, photo: action.photo } };
 
     case 'CLEAR_PHOTO':
@@ -142,14 +137,12 @@ const reducer = (state, action) => {
       };
 
     case 'PHOTOS':
-      console.log('photos here');
       return {
         ...state,
         download: { ...state.download, photos: action.photos },
       };
 
     case 'AFFILIATIONS':
-      console.log('affiliations here');
       return {
         ...state,
         download: { ...state.download, affiliations: action.affiliations },
