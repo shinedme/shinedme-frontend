@@ -29,7 +29,7 @@ export default () => {
         });
         let affiliate_url = photoProfile.affiliate_url.__private_14_raw;
         affiliate_url = u8aToString(affiliate_url);
-        if (affiliate_url.length > 0) {
+        if (!affiliate_url.includes('null')) {
           setAffUrl(affiliate_url);
         }
         setLikes(likes);
@@ -41,7 +41,6 @@ export default () => {
   useEffect(() => {
     queryInfo();
   }, [queryInfo]);
-
   return (
     <>
       {photos ? (
@@ -67,8 +66,8 @@ export default () => {
           </div>
         </div>
       ) : (
-        <p>Loading photo</p>
-      )}
+          <p>Loading photo</p>
+        )}
     </>
   );
 };
