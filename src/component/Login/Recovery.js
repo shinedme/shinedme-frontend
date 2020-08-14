@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
+import { Keyring } from '@polkadot/api';
 import { u8aToString } from '@polkadot/util';
 
 import { useSubstrate } from '../../substrate-lib';
@@ -11,7 +12,6 @@ export default () => {
   const {
     setName,
     account,
-    keyring,
     setSigner,
     api,
     setBalance,
@@ -27,10 +27,11 @@ export default () => {
   }
 
   const changeMnemonic = (e) => {
-    saveMnemonic(e.target.value);
+    saveMnemonic(e.target.value.trim());
   };
 
   const recover = async () => {
+    const keyring = new Keyring({ type: 'sr25519' });
     const signer = keyring.addFromUri(mnemonic);
     setSigner(signer);
     let query = await api.query;

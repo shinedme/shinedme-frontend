@@ -16,10 +16,10 @@
 }
 
 .profile-up {
-  height: 160px;
+  height: 200px;
   width: 100%;
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: 40% 50% 10%;
 }
 
 

@@ -27,6 +27,7 @@ const useSubstrate = () => {
     });
     _api.on('ready', () => {
       dispatch({ type: 'CONNECT_SUCCESS' });
+      console.log("come here")
       const keyring = new Keyring({ type: 'sr25519' });
       if (!mnemonic) {
         const mnemonic = bip39.generateMnemonic();

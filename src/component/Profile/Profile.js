@@ -9,7 +9,7 @@ import Avatar from '../utils/Avatar';
 import Board from '../Board/Board';
 
 export default () => {
-  const { account } = useSubstrate();
+  const { account, mnemonic, setName, setSigner } = useSubstrate();
   const { created_name, created_avatar, selfies } = account;
 
   const [show, setShow] = useState(false);
@@ -22,6 +22,16 @@ export default () => {
 
   const history = useHistory();
   const goPost = () => history.push('/provider');
+
+  const [toggle, setToggle] = useState(false)
+  const toggleClick = () => setToggle(!toggle)
+
+  const logout = () => {
+    window.localStorage.removeItem('shinedMe:mnemonic')
+    setName(null)
+    setSigner(null)
+    history.push('/')
+  }
   return (
     <div className="profile">
       <div className="profile-up">
@@ -37,7 +47,14 @@ export default () => {
           <button className="submit" onClick={goPost}>
             Affliation Provider Creation
           </button>
+          <button className="submit" onClick={toggleClick}>
+            Backup Keys
+          </button>
+          <p style={{display: toggle? 'block' : 'none', fontSize:'16px', color:'#663300'}}>This is your private 12 words, remember it properly.</p>
+          <p style={{display: toggle? 'block' : 'none', fontSize:'12px', color:'#663300'}}>{mnemonic}</p>
         </div>
+
+        <div><button className="submit" onClick={logout}>Log out</button></div>
       </div>
 
       <div className="profile-list">
