@@ -38,7 +38,7 @@ export default () => {
     if (signer) {
       let req = await fetch(
         `http://${
-          process.env.SHINEDME_ACCOUNT_HELPER_HOST || 'localhost'
+        process.env.REACT_APP_SHINEDME_ACCOUNT_HELPER_HOST || 'localhost'
         }:4000`,
         {
           method: 'POST',
@@ -74,13 +74,13 @@ export default () => {
           {profile.avatar ? (
             <Avatar src={profile.avatar} />
           ) : (
-            <input
-              type="file"
-              name="input-file"
-              id="input-file"
-              onChange={captureFile}
-            />
-          )}
+              <input
+                type="file"
+                name="input-file"
+                id="input-file"
+                onChange={captureFile}
+              />
+            )}
           <br />
           <p>Please input a nickname:</p>
           <input
@@ -108,8 +108,8 @@ export default () => {
                 preop={getInitialMoney}
               />
             ) : (
-              ''
-            )}
+                ''
+              )}
             <div style={{ overflowWrap: 'break-word' }}>{status}</div>
           </div>
         </form>
