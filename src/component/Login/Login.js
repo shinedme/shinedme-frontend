@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import { useSubstrate } from '../../substrate-lib';
 import { TxButton } from '../../substrate-lib/components';
@@ -69,7 +69,7 @@ export default () => {
   return (
     <div className="login account">
       <div className="log-in">
-        <form id="capture-media">
+        <form>
           <p>Please choose an avatar(profile photo)</p>
           {profile.avatar ? (
             <Avatar src={profile.avatar} />
@@ -113,6 +113,10 @@ export default () => {
             <div style={{ overflowWrap: 'break-word' }}>{status}</div>
           </div>
         </form>
+        <hr />
+        <p>
+          Already have account? Recovery <Link to="/recovery">here</Link>{' '}
+        </p>
       </div>
     </div>
   );

@@ -81,8 +81,6 @@ function TxButton({
     if (callable === 'updateUser') {
       setName(profile.nickname);
       setAvatar(profile.avatar);
-      window.localStorage.setItem('shinedMe:created::name', profile.nickname);
-      window.localStorage.setItem('shinedMe:created::avatar', profile.avatar);
     }
     if (upload.photo) {
       clearPhoto();

@@ -12,6 +12,7 @@ import Login from './component/Login/Login';
 import Editor from './component/Editor/Editor';
 import Gallery from './component/Gallery/Gallery';
 import Provider from './component/Provider/Provider';
+import Recovery from './component/Login/Recovery';
 
 import './App.css';
 
@@ -22,6 +23,7 @@ export default () => {
     <Switch>
       <Route exact path="/" component={Poster} />
       <Route exact path="/login" component={Login} />
+      <Route exact path="/recovery" component={Recovery} />
       <Route
         render={() => (
           <h1>
@@ -39,6 +41,7 @@ export default () => {
         <Switch>
           <Route exact path="/" component={Poster} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/recovery" component={Recovery} />
           <Route exact path="/dash" component={Dash} />
           <Route exact path="/upload" component={Upload} />
           <Route exact path="/profile" component={Profile} />

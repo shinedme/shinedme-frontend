@@ -88,10 +88,10 @@ const useSubstrate = () => {
       let query = await api.query;
       if (query.erc20) {
         let account = await query.erc20.accounts(signer.address);
-        let balance = await query.erc20.balanceOf(signer.address);
-        dispatch({ type: 'BALANCE', balance: balance.toString() });
         let name = u8aToString(account.name).toString();
         if (name !== '') {
+          let balance = await query.erc20.balanceOf(signer.address);
+          dispatch({ type: 'BALANCE', balance: balance.toString() });
           let avatar = u8aToString(account.avatar).toString();
           let selfies = account.photos.map((photo) => {
             let data = u8aToString(photo).toString();
@@ -101,8 +101,6 @@ const useSubstrate = () => {
           dispatch({ type: 'CREATED_NAME', created_name: name });
           dispatch({ type: 'CREATED_AVATAR', created_avatar: avatar });
           dispatch({ type: 'SELFIES', selfies });
-          window.localStorage.setItem('shinedMe:created::name', name);
-          window.localStorage.setItem('shinedMe:created::avatar', avatar);
         }
       }
     }
@@ -189,6 +187,23 @@ const useSubstrate = () => {
   const saveTotal = (total) => {
     dispatch({ type: 'TOTAL', total });
   };
+
+  const saveMnemonic = (mnemonic) => {
+    window.localStorage.setItem('shinedMe:mnemonic', mnemonic);
+  };
+
+  const setSigner = (signer) => {
+    dispatch({ type: 'SET_SIGNER', signer });
+  };
+
+  const setBalance = (balance) => {
+    dispatch({ type: 'BALANCE', balance: balance.toString() });
+  };
+
+  const setSelfies = (selfies) => {
+    dispatch({ type: 'SELFIES', selfies });
+  };
+
   return {
     ...state,
     saveToIpfs,
@@ -204,6 +219,10 @@ const useSubstrate = () => {
     saveTag,
     saveSingle,
     saveTotal,
+    saveMnemonic,
+    setSigner,
+    setBalance,
+    setSelfies,
   };
 };
 
