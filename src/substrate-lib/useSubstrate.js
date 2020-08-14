@@ -179,7 +179,7 @@ const useSubstrate = () => {
   };
 
   const saveTag = (tag) => {
-    dispatch({ type: 'TAG', tag: '?tag=' + tag });
+    dispatch({ type: 'TAG', tag: tag });
   };
 
   const saveSingle = (single) => {

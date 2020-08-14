@@ -125,14 +125,14 @@ export default () => {
     });
   }, [completedCrop, saveToIpfs]);
 
-  let url =
+  let url = upload.affiliate_url.length > 0 ?
     'http://localhost:5005?url=' +
     encodeURIComponent(upload.affiliate_url) +
     '&to=' +
     signer.address +
     '&urlAppend=' +
-    encodeURIComponent(appendTag);
-  console.log(upload.photo);
+    encodeURIComponent(appendTag) : ''
+  console.log(url)
   return (
     <div
       style={{
@@ -175,11 +175,14 @@ export default () => {
           <label style={{ fontSize: '1.5rem' }}>Affiliation : </label>
           <select style={{ fontSize: '1.2rem' }} onChange={selectAppend}>
             <option value=""></option>
-            {affiliations.map((aff) => (
-              <option key={aff.tag} value={aff.tag}>
-                {aff.tag.slice(5)}
-              </option>
-            ))}
+            {affiliations.map((aff) => {
+              let index = aff.tag.indexOf("=")
+              return (
+                <option key={aff.tag} value={aff.tag}>
+                  {aff.tag.slice(index + 1)}
+                </option>
+              )
+            })}
           </select>
         </div>
 

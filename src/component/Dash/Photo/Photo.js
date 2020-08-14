@@ -2,6 +2,7 @@ import React from 'react';
 import './Photo.css';
 
 export default ({ src, affUrl }) => {
+  console.log(affUrl);
   return (
     <div className="wrapper">
       <div className="home-img">
@@ -19,12 +20,12 @@ export default ({ src, affUrl }) => {
             />
           </a>
         ) : (
-          <img
-            src={src}
-            alt="Please upload your own and join with shined me community later"
-            className="img-set"
-          />
-        )}
+            <img
+              src={src}
+              alt="Please upload your own and join with shined me community later"
+              className="img-set"
+            />
+          )}
       </div>
     </div>
   );

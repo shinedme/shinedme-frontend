@@ -27,7 +27,7 @@ const download = {
 
 const provider = {
   url: null,
-  tag: null,
+  tag: '',
   total: '50',
   single: '1',
 };

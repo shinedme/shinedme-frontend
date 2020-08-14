@@ -24,7 +24,6 @@ export default () => {
     const regex = new RegExp(expression);
     if (longUrl.match(regex)) {
       let url = new URL(longUrl).origin;
-      console.log(url);
       saveProvider(url);
       setVP('correct');
     } else {
@@ -34,24 +33,17 @@ export default () => {
   const setTag = (e) => {
     saveTag(e.target.value);
   };
-  const [vT, setVT] = useState(false);
+
   const setTotal = (e) => {
     let total = e.target.value;
-    if (total < 0 || total > account.balance) {
-      setVT(true);
-    } else {
-      saveTotal(total);
-    }
+    saveTotal(total);
   };
-  const [vS, setVS] = useState(false);
+
   const setSingle = (e) => {
     let single = e.target.value;
-    if (single < 0 || single > account.balance) {
-      setVS(true);
-    } else {
-      saveSingle(single);
-    }
+    saveSingle(single);
   };
+  console.log(account.balance)
   return (
     <div className="account">
       <p>Provider Creation Form : </p>
@@ -90,6 +82,8 @@ export default () => {
           placeholder="10000"
           type="number"
           onChange={setTotal}
+          min="1"
+          max={account.balance.toString()}
         />
       </div>
       <div className="text-log">
@@ -99,6 +93,8 @@ export default () => {
           placeholder="1"
           onChange={setSingle}
           value={provider.single}
+          min="1"
+          max={account.balance.toString()}
         />
       </div>
       {signer ? (
@@ -108,7 +104,7 @@ export default () => {
           labelDone={'👼 Created'}
           setStatus={setStatus}
           type="SIGNED-TX"
-          disabled={vP === 'wrong' && vT === true && vS === true}
+          disabled={vP === 'wrong' || parseInt(provider.total) > account.balance || parseInt(provider.total) < 0 || parseInt(provider.single) > account.balance || parseInt(provider.single) < 0}
           attrs={{
             palletRpc: 'erc20',
             callable: 'createAffiliate',
@@ -118,7 +114,7 @@ export default () => {
               provider.single,
               provider.tag,
             ],
-            paramFields: [true, true, true, true],
+            paramFields: [true, true, true, { optional: true }],
           }}
         />
       ) : null}
