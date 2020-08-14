@@ -12,7 +12,7 @@ const bip39 = require('bip39');
 
 const initialState = {
   added_file_hash: null,
-  ipfs: ipfsClient('/ip4/127.0.0.1/tcp/5001'),
+  ipfs: ipfsClient(process.env.REACT_APP_IPFS_URL || '/ip4/127.0.0.1/tcp/5001'),
   keyring: new Keyring({ type: 'sr25519' }),
   mnemonic: window.localStorage.getItem('shinedMe:mnemonic'),
   signer: null,
