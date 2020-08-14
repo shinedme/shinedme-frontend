@@ -5,9 +5,9 @@ COPY package.json .
 COPY yarn.lock .
 RUN yarn
 COPY . .
-ENV SHINEDME_ACCOUNT_HELPER_HOST shined.me
-ENV SHINEDME_AFFILIATION_GATEWAY_HOST shined.me
-ENV BLOCKCHAIN_URL ws://shined.me:9944
+ENV REACT_APP_SHINEDME_ACCOUNT_HELPER_HOST shined.me
+ENV REACT_APP_SHINEDME_AFFILIATION_GATEWAY_HOST shined.me
+ENV REACT_APP_BLOCKCHAIN_URL ws://shined.me:9944
 RUN yarn run build
 
 # production environment
