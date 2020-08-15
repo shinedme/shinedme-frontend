@@ -8,7 +8,7 @@ COPY . .
 ENV REACT_APP_SHINEDME_ACCOUNT_HELPER_URL https://shined.me/account-helper
 ENV REACT_APP_SHINEDME_AFFILIATION_GATEWAY_URL https://shined.me/affiliation-gateway
 ENV REACT_APP_BLOCKCHAIN_URL wss://shined.me/node
-ENV REACT_APP_IPFS_URL https://shined.me/ipfs
+ENV REACT_APP_IPFS_URL https://shined.me
 RUN yarn run build
 
 # production environment
