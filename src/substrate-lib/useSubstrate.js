@@ -118,7 +118,8 @@ const useSubstrate = () => {
         .add(file, { progress: (prog) => console.log(`received: ${prog}`) })
         .then((added) => {
           let result = added.cid.toString();
-          src = 'https://ipfs.io/ipfs/' + result;
+          let host = process.env.REACT_APP_IPFS_FILE_HOST || 'http://localhost:8080'
+          src = host + '/ipfs/' + result;
         });
       let ok;
       while (!ok) {
