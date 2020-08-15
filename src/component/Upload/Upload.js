@@ -125,9 +125,9 @@ export default () => {
     });
   }, [completedCrop, saveToIpfs]);
 
-  let host = process.env.REACT_APP_SHINEDME_AFFILIATION_GATEWAY_HOST || 'localhost'
+  let host = process.env.REACT_APP_SHINEDME_AFFILIATION_GATEWAY_URL || 'http://localhost:5005'
   let url = upload.affiliate_url.length > 0 ?
-    `http://${host}:5005?url=` +
+    `${host}?url=` +
     encodeURIComponent(upload.affiliate_url) +
     '&to=' +
     signer.address +

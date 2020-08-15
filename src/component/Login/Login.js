@@ -36,10 +36,7 @@ export default () => {
 
   const getInitialMoney = async () => {
     if (signer) {
-      let req = await fetch(
-        `http://${
-        process.env.REACT_APP_SHINEDME_ACCOUNT_HELPER_HOST || 'localhost'
-        }:4000`,
+      let req = await fetch(process.env.REACT_APP_SHINEDME_ACCOUNT_HELPER_URL || 'http://localhost:4000',
         {
           method: 'POST',
           headers: {
